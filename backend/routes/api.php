@@ -60,5 +60,6 @@ Route::post('/logout', function (Request $request) {
     ]);
 })->middleware('auth:sanctum');
 
-// Properties API route for frontend
+// Properties API routes for frontend
 Route::get('/properties', [PropertyController::class, 'apiIndex']);
+Route::get('/properties/{id}', [PropertyController::class, 'apiShow']);
