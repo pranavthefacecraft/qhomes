@@ -1,25 +1,21 @@
-import { useState, useMemo, useCallback, useRef } from "react";
-import {
-  GoogleMap,
-  Marker,
-  DirectionsRenderer,
-  Circle,
-  MarkerClusterer,
-} from "@react-google-maps/api";
+import React, { useEffect, useState, useMemo } from 'react';
+import axios from 'axios';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 
-import Places from "./places";
+import CustomMarker from './CustomMarker';
+import useHoverStore from './store';
 
 
 
+const defaultCenter = { lat: 3.1319, lng: 101.6841 }; // Example: Delhi
 
-export default function Map() {
-  const [property, setProperty] = useState();
-  const [directions, setDirections] = useState();
-  const mapRef = useRef();
-  const center = useMemo(
-    () => ({ lat: 4.2105, lng: 101.9758 }),
-    []
-  );
+const Map = () => {
+  const [properties, setProperties] = useState([]);
+  const [mapRef, setMapRef] = useState(null);
+  const [markers, setMarkers] = useState([]);
+  const [center, setCenter] = useState(defaultCenter);
+  const hoveredPropertyId = useHoverStore(state => state.hoveredPropertyId);
+
   const options = useMemo(
     () => ({
       mapId: "2d55830b3d259e645a1dd60a",
@@ -28,62 +24,87 @@ export default function Map() {
     }),
     []
   );
-  const onLoad = useCallback((map) => (mapRef.current = map), []);
 
-  
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/properties');
+        setProperties(Array.isArray(response.data) ? response.data : []);
+      } catch (err) {
+        setProperties([]);
+      }
+    };
+    fetchProperties();
+  }, []);
+
+  useEffect(() => {
+    const geocodeAddresses = async () => {
+      if (!window.google || !window.google.maps) return;
+      const geocoder = new window.google.maps.Geocoder();
+
+      const markerPromises = properties.map(
+        property =>
+          new Promise(resolve => {
+            geocoder.geocode({ address: property.location }, (results, status) => {
+              if (status === 'OK' && results[0]) {
+                resolve({
+                  id: property.id,
+                  position: {
+                    lat: results[0].geometry.location.lat(),
+                    lng: results[0].geometry.location.lng(),
+                  },
+                  title: property.title,
+                  price: property.price, // <-- add this line
+                  currency: property.currency, // <-- add this if you want to show currency
+                });
+              } else {
+                resolve(null);
+              }
+            });
+          })
+        );
+
+      const results = await Promise.all(markerPromises);
+      const validMarkers = results.filter(Boolean);
+      setMarkers(validMarkers);
+
+      // Center on the first marker if available
+      if (validMarkers.length > 0) {
+        setCenter(validMarkers[0].position);
+      }
+    };
+
+    if (properties.length > 0) {
+      geocodeAddresses();
+    }
+  }, [properties]);
+
   return (
-    <div className="container">
-      <div className="controls">
-        <h1>Search</h1>
-        <Places
-          setProperty={(position) => {
-            setProperty(position);
-            mapRef.current?.panTo(position);
-          }}
-        />
-      </div>
-      <div className="map">
-        <GoogleMap
-          zoom={10}
-          center={center}
-          mapContainerClassName="map-container"
-          options={options}
-          onLoad={onLoad}
-        >
-          {property && <Marker position={property}/>}
-        </GoogleMap>
-      </div>
-    </div>
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+    <GoogleMap
+      mapContainerClassName="map-container"
+      center={center}
+      options={options}
+      zoom={11}
+      onLoad={setMapRef}
+    />
+    {mapRef &&
+      markers.map(marker => (
+       <CustomMarker key={marker.id} map={mapRef} position={marker.position}>
+            <div
+              className={`bg-white select-none text-grey rounded-full shadow-lg px-1 py-0 min-w-[20px] min-h-[16px] border border-gray-200 flex items-center justify-center transition-colors duration-200 ${
+                hoveredPropertyId === marker.id ? 'bg-black text-white border-black' : ''
+              }`}
+            >
+              <span className="text-xs font-bold flex items-center">
+                {marker.currency && <span>{marker.currency}&nbsp;</span>}
+                <span>{marker.price.toLocaleString()}</span>
+              </span>
+            </div>
+      </CustomMarker>
+      ))}
+  </div>
   );
-}
-
-const defaultOptions = {
-  strokeOpacity: 0.5,
-  strokeWeight: 2,
-  clickable: false,
-  draggable: false,
-  editable: false,
-  visible: true,
-};
-const closeOptions = {
-  ...defaultOptions,
-  zIndex: 3,
-  fillOpacity: 0.05,
-  strokeColor: "#8BC34A",
-  fillColor: "#8BC34A",
-};
-const middleOptions = {
-  ...defaultOptions,
-  zIndex: 2,
-  fillOpacity: 0.05,
-  strokeColor: "#FBC02D",
-  fillColor: "#FBC02D",
-};
-const farOptions = {
-  ...defaultOptions,
-  zIndex: 1,
-  fillOpacity: 0.05,
-  strokeColor: "#FF5252",
-  fillColor: "#FF5252",
 };
 
+export default Map;

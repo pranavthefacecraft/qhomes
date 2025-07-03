@@ -38,7 +38,7 @@ export default function Places({ setProperty }) {
         onChange={(e) => setValue(e.target.value)}
         disabled={!ready}
         className="combobox-input"
-        placeholder="Search Property Address"
+        placeholder="Search Property"
       />
       <ComboboxPopover>
         <ComboboxList>
