@@ -133,12 +133,12 @@
                     </div>
 
                     <!-- Image Thumbnails Grid -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                         @foreach($allImages as $index => $imageData)
                             <div class="relative group">
                                 <img src="{{ asset('storage/' . $imageData['path']) }}" 
                                      alt="{{ $property->title }}" 
-                                     class="w-full h-32 object-cover rounded-lg border border-gray-300 cursor-pointer hover:opacity-80 transition-opacity shadow-sm"
+                                     class="max-w-full h-auto object-cover rounded-lg border border-gray-300 cursor-pointer hover:opacity-80 transition-opacity shadow-sm"
                                      onclick="openImageModal('{{ asset('storage/' . $imageData['path']) }}', {{ $index }})">
                                 
                                 <!-- Image overlay with type indicator -->
