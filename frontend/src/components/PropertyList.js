@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import useHoverStore from './store';
+
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const hoveredPropertyId = useHoverStore(state => state.hoveredPropertyId);
+  const setHoveredPropertyId = useHoverStore(state => state.setHoveredPropertyId);
 
   useEffect(() => {
     fetchProperties();
@@ -58,7 +63,7 @@ const PropertyList = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-12">
+      <div className="flex justify-center items-center py-12 h-screen">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading properties...</p>
@@ -100,7 +105,13 @@ const PropertyList = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {properties.map((property) => (
-        <div key={property.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+        <div key={property.id}
+          className={`bg-white rounded-lg shadow-md overflow-hidden transition-shadow transition-transform duration-200 ${
+            hoveredPropertyId === property.id ? 'scale-105 z-10 shadow-xl' : 'hover:scale-105'
+          }`}
+          onMouseEnter={() => setHoveredPropertyId(property.id)}
+          onMouseLeave={() => setHoveredPropertyId(null)}
+          >
           {/* Property Image */}
           <Link to={`/property/${property.id}`}>
             <div className="relative h-48 bg-gray-200">
