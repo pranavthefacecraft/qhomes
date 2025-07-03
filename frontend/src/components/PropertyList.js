@@ -83,7 +83,7 @@ const PropertyList = () => {
           Try Again
         </button>
       </div>
-    );
+    )
   }
 
   if (properties.length === 0) {
@@ -103,52 +103,50 @@ const PropertyList = () => {
   console.log('Rendering properties:', properties.length);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {properties.map((property) => (
-        <div key={property.id}
-          className={`bg-white rounded-lg shadow-md overflow-hidden transition-shadow transition-transform duration-200 ${
-            hoveredPropertyId === property.id ? 'scale-105 z-10 shadow-xl' : 'hover:scale-105'
-          }`}
-          onMouseEnter={() => setHoveredPropertyId(property.id)}
-          onMouseLeave={() => setHoveredPropertyId(null)}
-          >
-          {/* Property Image */}
-          <Link to={`/property/${property.id}`}>
-            <div className="relative h-48 bg-gray-200">
-              {property.images && property.images.length > 0 ? (
-                <img 
-                  src={`http://localhost:8000/storage/${property.images[0]}`}
-                  alt={property.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-500">
-                  <svg className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </div>
-              )}
-              <div className="absolute top-2 right-2 bg-primary-600 text-white px-2 py-1 rounded text-sm font-medium">
-                {property.listing_type}
+    <div className="listings grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {properties.map((property) => (
+      <div
+        key={property.id}
+        className={`min-w-[250px] flex-shrink-0 overflow-hidden transition-shadow transition-transform duration-200 hover:scale-105`}
+        onMouseEnter={() => setHoveredPropertyId(property.id)}
+        onMouseLeave={() => setHoveredPropertyId(null)}
+      >
+        <Link to={`/property/${property.id}`}>
+          <div className="relative h-48">
+            {property.images && property.images.length > 0 ? (
+              <img
+                src={`http://localhost:8000/storage/${property.images[0]}`}
+                alt={property.title}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            ) : (
+              <div className="w-full h-48 flex items-center justify-center text-gray-500">
+                <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
               </div>
-            </div>
-          </Link>
-
-          {/* Property Details */}
-          <div className="p-6">
-            <Link to={`/property/${property.id}`}>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2 hover:text-primary-600 transition-colors">{property.title}</h3>
-            </Link>
-            <p className="text-gray-600 mb-3">{property.location}</p>
+            )}
             
-            <div className="flex justify-between items-center mb-3">
-              <span className="text-2xl font-bold text-primary-600">
-                {formatPrice(property.price, property.currency)}
-              </span>
-              <span className="text-sm text-gray-500">{property.property_type}</span>
-            </div>
+          </div>
+        </Link>
 
-            <div className="grid grid-cols-3 gap-4 mb-4 text-sm text-gray-600">
+      <div className="p-0">
+        <Link to={`/property/${property.id}`}>
+        <div className='title w-full h-4 text-base font-medium text-gray-800 whitespace-nowrap overflow-visible '>
+          <h4>{property.title}</h4>
+        </div>  
+        </Link>
+
+        <p className="address text-gray-600 text-xs">{property.location}</p>
+
+        <div className="price flex justify-between items-center">
+          <span className="text-md font-bold text-primary-300">
+            {formatPrice(property.price, property.currency)}
+          </span>
+          <span className="type text-xs text-gray-500">{property.property_type}</span>
+        </div>
+
+        <div className="features grid grid-cols-3 mb-4 text-xs text-gray-600">
               <div className="flex items-center">
                 <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -167,18 +165,20 @@ const PropertyList = () => {
                 </svg>
                 {property.area_size} sqft
               </div>
-            </div>
-
-            <Link 
-              to={`/property/${property.id}`}
-              className="block w-full bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 transition-colors text-center font-medium"
-            >
-              View Details
-            </Link>
-          </div>
         </div>
-      ))}
+
+
+        <Link
+          to={`/property/${property.id}`}
+          className="button block border-primary-600 text-white hover:bg-primary-700 hover:text-white text-center text-sm font-medium"
+        >
+          View Property
+        </Link>
+      </div>
     </div>
+  ))}
+</div>
+
   );
 };
 
