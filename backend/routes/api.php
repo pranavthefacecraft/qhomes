@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PropertyController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -58,3 +59,6 @@ Route::post('/logout', function (Request $request) {
         'message' => 'Successfully logged out'
     ]);
 })->middleware('auth:sanctum');
+
+// Properties API route for frontend
+Route::get('/properties', [PropertyController::class, 'apiIndex']);

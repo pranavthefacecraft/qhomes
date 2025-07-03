@@ -346,18 +346,20 @@
                                 <h4 class="text-sm font-medium text-gray-700 mb-2">Main Image</h4>
                                 <img src="{{ asset('storage/' . $property->images['main']) }}" 
                                      alt="{{ $property->title }}" 
-                                     class="w-32 h-24 object-cover rounded-lg border border-gray-300">
+                                     class="object-cover rounded-lg border border-gray-300">
                             </div>
                         @endif
 
                         @if(isset($property->images['additional']) && count($property->images['additional']) > 0)
                             <div>
                                 <h4 class="text-sm font-medium text-gray-700 mb-2">Additional Images ({{ count($property->images['additional']) }})</h4>
-                                <div class="grid grid-cols-4 md:grid-cols-8 gap-2">
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-4" >
                                     @foreach($property->images['additional'] as $image)
+                                    <div class="relative group">
                                         <img src="{{ asset('storage/' . $image) }}" 
                                              alt="{{ $property->title }}" 
-                                             class="w-16 h-12 object-cover rounded border border-gray-300">
+                                             class="h-auto max-w-full rounded-lg border border-gray-300">
+                                    </div>
                                     @endforeach
                                 </div>
                             </div>
