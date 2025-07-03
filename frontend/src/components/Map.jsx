@@ -85,7 +85,7 @@ const Map = () => {
       mapContainerClassName="map-container"
       center={center}
       options={options}
-      zoom={11}
+      zoom={12}
       onLoad={setMapRef}
     />
     {mapRef &&
