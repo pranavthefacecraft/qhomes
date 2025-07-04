@@ -115,7 +115,7 @@ const PropertyList = () => {
           <div className="relative h-48">
             {property.images && property.images.length > 0 ? (
               <img
-                src={`http://localhost:8000/storage/${property.images[0]}`}
+                src="/image.jpg"
                 alt={property.title}
                 className="w-full h-full object-cover rounded-lg"
               />
@@ -146,20 +146,20 @@ const PropertyList = () => {
           <span className="type text-xs text-gray-500">{property.property_type}</span>
         </div>
 
-        <div className="features grid grid-cols-3 mb-4 text-xs text-gray-600">
-              <div className="flex items-center">
+        <div className="features grid grid-cols-3 text-xs text-gray-600">
+              <div className="feature flex items-center">
                 <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
                 {property.bedrooms} Beds
               </div>
-              <div className="flex items-center">
+              <div className="feature flex items-center">
                 <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
                 </svg>
                 {property.bathrooms} Baths
               </div>
-              <div className="flex items-center">
+              <div className="feature flex items-center">
                 <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                 </svg>
