@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,9 @@ Route::middleware('auth')->group(function () {
     
     // Property routes
     Route::resource('properties', PropertyController::class);
+    
+    // Agent routes
+    Route::resource('agents', AgentController::class);
 });
 
 require __DIR__.'/auth.php';

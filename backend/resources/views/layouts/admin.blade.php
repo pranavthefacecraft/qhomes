@@ -32,7 +32,11 @@
                     
                     <!-- Navigation -->
                     <nav class="mt-5 flex-1 px-2 space-y-1">
-                        {{ $sidebar ?? '' }}
+                        @isset($sidebar)
+                            {{ $sidebar }}
+                        @else
+                            <x-admin-sidebar />
+                        @endisset
                     </nav>
                 </div>
                 
@@ -93,7 +97,11 @@
                         </div>
                     </div>
                     <nav class="mt-5 px-2 space-y-1">
-                        {{ $sidebar ?? '' }}
+                        @isset($sidebar)
+                            {{ $sidebar }}
+                        @else
+                            <x-admin-sidebar />
+                        @endisset
                     </nav>
                 </div>
                 
