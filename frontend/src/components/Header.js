@@ -13,11 +13,27 @@ const Header = () => {
               alt="QHomes Logo" 
               className="h-10 w-10 mr-1"
             />
-            <h1 className="text-2xl font-bold text-primary-700">QHomes</h1>
+            <h1 className="main text-2xl font-bold text-primary-700">QHomes</h1>
           </Link>
           
+          {/* Custom Styled Search Bar */}
+          <div className="search-bar-container">
+            <div className="search-bar">
+              <input
+                type="text"
+                placeholder="Search properties..."
+                className="search-input"
+              />
+              <button className="search-button">
+                <svg className="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          
           {/* Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="options hidden md:flex space-x-8">
             <Link 
               to="/" 
               className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
@@ -43,7 +59,7 @@ const Header = () => {
               Contact
             </a>
           </nav>
-          
+
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button className="text-gray-700 hover:text-primary-600">
