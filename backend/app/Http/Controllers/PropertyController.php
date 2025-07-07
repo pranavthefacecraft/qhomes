@@ -303,30 +303,56 @@ class PropertyController extends Controller
         // Format the property data for frontend consumption
         $images = [];
         if ($property->images) {
-            if (isset($property->images['main'])) {
-                $images[] = $property->images['main'];
+            if (is_array($property->images)) {
+                if (isset($property->images['main'])) {
+                    $images[] = asset('storage/' . $property->images['main']);
+                }
+                if (isset($property->images['additional']) && is_array($property->images['additional'])) {
+                    foreach ($property->images['additional'] as $additionalImage) {
+                        $images[] = asset('storage/' . $additionalImage);
+                    }
+                }
             }
-            if (isset($property->images['additional'])) {
-                $images = array_merge($images, $property->images['additional']);
-            }
+        }
+
+        // If no images in the specific format, add some sample images for testing
+        if (empty($images)) {
+            $images = [
+                asset('/image.jpg'),
+                asset('/a2RN1000000BXofMAG_PicoHouse1006-RECFIXED.png'),
+                asset('/logo.png')
+            ];
         }
 
         $formattedProperty = [
             'id' => $property->id,
             'title' => $property->title,
-            'property_type' => ucfirst($property->type),
-            'listing_type' => ucwords(str_replace('_', ' ', $property->status)),
+            'type' => $property->type,
+            'status' => $property->status,
             'price' => $property->price,
             'currency' => $property->currency ?? 'USD',
-            'location' => $property->city . ', ' . $property->state,
+            'address' => $property->address,
+            'city' => $property->city,
+            'state' => $property->state,
+            'postal_code' => $property->postal_code,
+            'country' => $property->country,
             'bedrooms' => $property->bedrooms ?? 0,
             'bathrooms' => $property->bathrooms ?? 0,
-            'area_size' => $property->square_feet ?? 0,
+            'sqft' => $property->square_feet ?? 0,
+            'lot_size' => $property->lot_size,
+            'year_built' => $property->year_built,
             'images' => $images,
             'description' => $property->description,
-            'agent_name' => $property->agent_name,
-            'agent_phone' => $property->agent_phone,
-            'agent_email' => $property->agent_email,
+            'features' => $property->features ?? [],
+            'featured' => $property->is_featured ?? false,
+            'created_at' => $property->created_at->toISOString(),
+            'agent' => [
+                'name' => $property->agent_name,
+                'phone' => $property->agent_phone,
+                'email' => $property->agent_email,
+                'company' => null,
+                'avatar' => null,
+            ],
         ];
 
         return response()->json($formattedProperty);
