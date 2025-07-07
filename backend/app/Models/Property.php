@@ -73,4 +73,8 @@ class Property extends Model
     {
         return ucfirst(str_replace('_', ' ', $this->status));
     }
+
+    
+
+
 }
