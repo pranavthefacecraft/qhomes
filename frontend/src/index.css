@@ -692,7 +692,7 @@ a {
 }
 
 .button {
-  margin-top: 1.3rem;
+  margin-top: 1rem;
   padding: 0.3rem;
   border: 1px solid #2563eb;
   width: 50%;
@@ -741,7 +741,7 @@ font-size: 30px;
   font-weight: 200;
   font-style: normal;
   background-color: #ffffff;
-  width: 100vw;
+  width: 100%;
   height: 10vh;
   display: flex;
   align-items: center;
@@ -749,7 +749,6 @@ font-size: 30px;
 
 .header-containers {
   width: 100%;
-  max-width: 100vw;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -841,7 +840,7 @@ font-size: 30px;
 }
 
 .left {
-	width:60vw;
+	width:60%;
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 2rem;
@@ -849,7 +848,6 @@ font-size: 30px;
 }
 
 .detailsWrapper {
-  margin: auto;
   width: 100%;
   min-height: 100vh;
   display: grid;
@@ -883,7 +881,7 @@ font-size: 30px;
 .right {
   position: sticky;
   top: 0;
-	width:40vw;
+	width:40%;
 	height:100vh;
 	display:flex;
 	flex-direction:column;
@@ -894,7 +892,7 @@ font-size: 30px;
 
 .map-container {
 	width:100%;
-	height: 100%;
+	height:100%;
   border-radius: 20px;
 }
 
@@ -942,9 +940,9 @@ font-size: 30px;
 
 .location {
   height: 1.1rem;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 300;
-  margin-top: 0.1rem;
+  margin-top: 1rem;
 }
 
 .price-type {
