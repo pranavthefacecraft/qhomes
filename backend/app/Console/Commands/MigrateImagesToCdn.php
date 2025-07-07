@@ -17,7 +17,7 @@ class MigrateImagesToCdn extends Command
     /**
      * The console command description.
      */
-    protected $description = 'Migrate existing property images from local storage to CDN';
+    protected $description = 'Migrate existing property images from local storage to CDN'; 
 
     /**
      * Execute the console command.

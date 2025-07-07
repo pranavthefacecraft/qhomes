@@ -432,7 +432,7 @@ class PropertyController extends Controller
             'year_built' => $property->year_built,
             'lot_size' => $property->lot_size,
             'property_id' => $property->property_id,
-            'virtual_tour_link' => $property->virtual_tour_link,
+            'virtual_tour_link' => $property->virtual_tour_link, 
             'key_features' => $property->key_features,
             'availability_date' => $property->availability_date,
             'is_featured' => $property->is_featured,

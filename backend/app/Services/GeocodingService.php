@@ -5,7 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class GeocodingService
+class GeocodingService 
 {
     /**
      * Get latitude and longitude for a given address using OpenStreetMap Nominatim API

@@ -72,5 +72,5 @@ class Property extends Model
     public function getStatusDisplayAttribute(): string
     {
         return ucfirst(str_replace('_', ' ', $this->status));
-    }
+    } 
 }

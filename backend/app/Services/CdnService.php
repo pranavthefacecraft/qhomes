@@ -23,7 +23,7 @@ class CdnService
     /**
      * Store a file and return the URL
      */
-    public static function store($file, $path = 'property-images')
+    public static function store($file, $path = 'property-images') 
     {
         try {
             $disk = self::getDisk();

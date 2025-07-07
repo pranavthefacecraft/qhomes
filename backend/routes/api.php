@@ -95,3 +95,4 @@ Route::post('/geocode', function (Request $request) {
         ], 422);
     }
 });
+ 

@@ -18,7 +18,7 @@ class UpdatePropertyCoordinates extends Command
         $properties = Property::whereNull('latitude')->orWhereNull('longitude')->get();
         
         if ($properties->isEmpty()) {
-            $this->info('No properties need coordinate updates.');
+            $this->info('No properties need coordinate updates.'); 
             return Command::SUCCESS;
         }
         
