@@ -3,6 +3,8 @@ import { GoogleMap } from '@react-google-maps/api';
 import NewMarker from './NewMarker';
 import axios from 'axios';
 
+import PropertyCardOverlay from './PropertyOverlay';
+
 import useHoverStore from './store';
 
 const DEFAULT_CENTER = { lat: 3.1319, lng: 101.6841 };
@@ -15,6 +17,8 @@ const UpdatedMap = () => {
   const [markers, setMarkers] = useState([]);
   const [center, setCenter] = useState(DEFAULT_CENTER);
   const [loading, setLoading] = useState(true);
+
+  const [selectedProperty, setSelectedProperty] = useState(null);
 
   const { hoveredPropertyId } = useHoverStore(); // <-- get hoveredPropertyId
 
@@ -48,7 +52,7 @@ const UpdatedMap = () => {
            
             geocoder.geocode({ address: property.location}, (results, status) => {
               if (status === 'OK' && results[0]) {
-                console.log('Geocoding:', property.title, property.longitude, property.latitude);
+                // console.log('Geocoding:', property.title, property.longitude, property.latitude);
                 
                 resolve({
                   id: property.id,
@@ -89,7 +93,7 @@ const UpdatedMap = () => {
   const options = useMemo(
     () => ({
       disableDefaultUI: true,
-      clickableIcons: false,
+      clickableIcons: true,
       styles: 
       [
         {
@@ -318,10 +322,31 @@ const UpdatedMap = () => {
             ]
         }
     ]
+
+
+    
       
     }),
     []
   );
+
+  const handleMarkerClick = (marker) => {
+  // Find the full property object by id
+  const property = properties.find(p => p.id === marker.id);
+  setSelectedProperty(property);
+  };
+
+  useEffect(() => {
+  if (selectedProperty) {
+    console.log("Selected property changed:", selectedProperty);
+  }
+  }, [selectedProperty]);
+
+  const closePopup = () => setSelectedProperty(null);
+
+  const handleMapClick = () => {
+    if (selectedProperty) setSelectedProperty(null);
+  };
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
@@ -337,17 +362,25 @@ const UpdatedMap = () => {
         >
           {mapRef &&
             markers.map(marker => (
-              <NewMarker
-                key={marker.id}
-                position={marker.position}
-                hovered={hoveredPropertyId === marker.id} // Pass if hovered
-              >
-                <span className="marker-text text-xs font-bold flex items-center">
-                  {marker.currency && <span>{marker.currency}&nbsp;</span>}
-                  <span>{marker.price?.toLocaleString()}</span>
-                </span>
-              </NewMarker>
-            ))}
+            <NewMarker
+              key={marker.id}
+              position={marker.position}
+              hovered={hoveredPropertyId === marker.id}
+              onClick={() => handleMarkerClick(marker)}
+            >
+             <span className="marker-text text-xs font-bold flex items-center">
+               {marker.currency && <span>{marker.currency}&nbsp;</span>}
+               <span>{marker.price?.toLocaleString()}</span>
+             </span>
+            </NewMarker>
+           ))}
+
+          
+          {/* Use the new overlay component */}
+        <PropertyCardOverlay
+          property={selectedProperty}
+          onClose={() => setSelectedProperty(null)}
+        />
         </GoogleMap>
       )}
     </div>
