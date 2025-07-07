@@ -194,6 +194,15 @@
                                 <span class="font-medium text-gray-700">Lot Size:</span> {{ number_format($property->lot_size) }} sq ft
                             </div>
                         @endif
+
+                        @if($property->latitude && $property->longitude)
+                            <div class="mb-4">
+                                <span class="font-medium text-gray-700">Coordinates:</span> 
+                                <span class="text-gray-600">
+                                    {{ number_format($property->latitude, 6) }}, {{ number_format($property->longitude, 6) }}
+                                </span>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -276,6 +285,51 @@
                         </div>
                     </div>
                 @endif
+
+                <!-- Location Information -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Location Details</h3>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <span class="font-medium text-gray-700">Full Address:</span>
+                                <div class="text-gray-900">
+                                    {{ $property->address }}<br>
+                                    {{ $property->city }}, {{ $property->state }} {{ $property->postal_code }}
+                                </div>
+                            </div>
+
+                            @if($property->latitude && $property->longitude)
+                                <div>
+                                    <span class="font-medium text-gray-700">Coordinates:</span>
+                                    <div class="text-gray-900 text-sm">
+                                        <div>Latitude: {{ number_format($property->latitude, 6) }}</div>
+                                        <div>Longitude: {{ number_format($property->longitude, 6) }}</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Google Maps Link -->
+                                <div class="mt-3">
+                                    <a href="https://maps.google.com/?q={{ $property->latitude }},{{ $property->longitude }}" 
+                                       target="_blank" 
+                                       class="inline-flex items-center px-3 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 transition duration-150 ease-in-out">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                        View on Google Maps
+                                    </a>
+                                </div>
+                            @else
+                                <div>
+                                    <span class="font-medium text-gray-700">Coordinates:</span>
+                                    <div class="text-gray-500 text-sm">Not available</div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Property Info -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
