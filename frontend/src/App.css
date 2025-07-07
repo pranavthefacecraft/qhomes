@@ -21,42 +21,123 @@ a {
   border-radius: 20px;
 }
 
-.search {
-  position: absolute;
-  top: 25vh;
-  right: 7.5vw;
-  width: 20%;
-  color: #fff;
-  border-radius: 1rem;
+
+
+
+.searchbar-form {
+  width: 80%;
+  position: relative;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
 }
 
-
-.search input {
-  border: none;
-  text-align: center;
-  border-radius: 0.5rem;
-  padding: 0.2rem 0rem;
-  font-family: MonserratMedium;
-  font-size: 0.9rem;
+.searchbar-input-wrapper {
+  position: relative;
 }
 
-.highlight {
-  font-size: 1.25rem;
-}
-
-.combobox-input {
+.searchbar-input {
   width: 100%;
-  padding: 0.5rem;
+  padding: 1rem;
+  background-color: #BACEF9;
+  border-radius: 9999px;
+  color: #374151;
+  border: none;
+  outline: none;
+  font-size: 1rem;
 }
 
-.labels {
-  padding-top: 9px;
-  border-radius: 9px;
-  padding-bottom: 10px;
-  padding-left: 9px;
-  padding-right: 9px;
-  font-weight: bold; 
-  font-family: 'Times New Roman', Times, serif;
+.searchbar-btn {
+  position: absolute;
+  right: 0.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 1rem;
+  background-color: #4E81EF; /* slate-600 */
+  border-radius: 9999px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.searchbar-dropdown {
+  position: absolute;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem;
+  background-color: #1e293b; /* slate-800 */
+  color: #fff;
+  width: 100%;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.tooltip-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none; /* Let clicks through to map */
+  transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s cubic-bezier(.4,2,.6,1), filter 0.3s cubic-bezier(.4,2,.6,1);
+  transform: scale(1);
+}
+
+.tooltip-bubble {
+  background: #FDFAF6;
+  border-radius: 6px;
+  color: #222;
+  padding: 7px 23px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+  text-align: center;
+  min-width: 80px;
+  max-width: 180px;
+  z-index: 1;
+  position: relative;
+}
+
+.tooltip-pointer-border {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-top: 13px solid #FDFAF6;
+  position: relative;
+  top: 0;
+  left: -2px;
+  z-index: 0;
+}
+
+.tooltip-pointer {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 16px solid #FDFAF6;
+  position: relative;
+  top: -16px;
+  z-index: 1;
+}
+
+.marker-text {
+  font-size: 0.6rem;
+}
+
+
+.tooltip-container.hovered {
+  transform: scale(1.2);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  filter: brightness(1.15);
+  z-index: 10;
+}
+
 
 

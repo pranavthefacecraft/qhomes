@@ -4,13 +4,16 @@ import axios from 'axios';
 
 import useHoverStore from './store';
 
-const PropertyList = () => {
+
+
+const Cards = () => {
+
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const hoveredPropertyId = useHoverStore(state => state.hoveredPropertyId);
-  const setHoveredPropertyId = useHoverStore(state => state.setHoveredPropertyId);
+  const { setHoveredProperty, clearHoveredProperty } = useHoverStore();
+
 
   useEffect(() => {
     fetchProperties();
@@ -61,6 +64,7 @@ const PropertyList = () => {
     }).format(price);
   };
 
+
   if (loading) {
     return (
       <div className="flex justify-center items-center py-12 h-screen">
@@ -102,20 +106,24 @@ const PropertyList = () => {
 
   console.log('Rendering properties:', properties.length);
 
+  
   return (
-    <div className="listings grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <>
+    
+
     {properties.map((property) => (
-      <div
-        key={property.id}
-        className={`min-w-[250px] flex-shrink-0 overflow-hidden transition-shadow transition-transform duration-200 hover:scale-105`}
-        onMouseEnter={() => setHoveredPropertyId(property.id)}
-        onMouseLeave={() => setHoveredPropertyId(null)}
-      >
+      <div className="details"
+       key={property.id}
+       onMouseEnter={() => setHoveredProperty(property.id)}
+       onMouseLeave={clearHoveredProperty}
+       >
+        {/* Image */}
         <Link to={`/property/${property.id}`}>
-          <div className="relative h-48">
-            {property.images && property.images.length > 0 ? (
+        
+        <div className="image">
+          {property.images && property.images.length > 0 ? (
               <img
-                src="/image.jpg"
+                src={`http://localhost:8000/storage/${property.images[0]}`}
                 alt={property.title}
                 className="w-full h-full object-cover rounded-lg"
               />
@@ -126,28 +134,23 @@ const PropertyList = () => {
                 </svg>
               </div>
             )}
-            
-          </div>
-        </Link>
-
-      <div className="p-0">
-        <Link to={`/property/${property.id}`}>
-        <div className='title w-full h-4 text-base font-medium text-gray-800 whitespace-nowrap overflow-visible '>
-          <h4>{property.title}</h4>
-        </div>  
-        </Link>
-
-        <p className="address text-gray-600 text-xs">{property.location}</p>
-
-        <div className="price flex justify-between items-center">
-          <span className="text-md font-bold text-primary-300">
-            {formatPrice(property.price, property.currency)}
-          </span>
-          <span className="type text-xs text-gray-500">{property.property_type}</span>
         </div>
 
-        <div className="features grid grid-cols-3 text-xs text-gray-600">
-              <div className="feature flex items-center">
+        </Link>
+
+        {/* Details */}
+        <div className="description">
+          <Link to={`/property/${property.id}`}>
+            <div className="title">{property.title}</div>
+          </Link>
+          
+          <div className="location">{property.location}</div>
+          <div className="price-type">
+            <div className="pricing">{formatPrice(property.price, property.currency)}</div>
+            <div className="property-type">{property.property_type}</div>
+          </div>
+          <div className="features">
+            <div className="feature flex items-center">
                 <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
@@ -165,21 +168,21 @@ const PropertyList = () => {
                 </svg>
                 {property.area_size} sqft
               </div>
+          </div>
         </div>
-
-
+        {/* Button */}
+        <div className="view-button">
         <Link
-          to={`/property/${property.id}`}
-          className="button block border-primary-600 text-white hover:bg-primary-700 hover:text-white text-center text-sm font-medium"
+        to={`/property/${property.id}`}
+        className="button block border-primary-600 text-white hover:bg-primary-700 hover:text-white text-center text-sm font-medium"
         >
           View Property
         </Link>
+        </div>
       </div>
-    </div>
-  ))}
-</div>
-
+    ))}
+    </>
   );
 };
 
-export default PropertyList;
+export default Cards;
