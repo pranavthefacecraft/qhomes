@@ -126,8 +126,18 @@ Route::middleware('auth')->group(function () {
     // Property routes
     Route::resource('properties', PropertyController::class);
     
-    // Agent routes
-    Route::resource('agents', AgentController::class);
+    // Agent routes (Super Admin only)
+    Route::middleware('super_admin')->group(function () {
+        Route::resource('agents', AgentController::class);
+        Route::post('agents/{agent}/create-user-account', [AgentController::class, 'createUserAccount'])
+            ->name('agents.create-user-account');
+        Route::patch('agents/{agent}/toggle-user-status', [AgentController::class, 'toggleUserStatus'])
+            ->name('agents.toggle-user-status');
+        Route::patch('agents/{agent}/reset-password', [AgentController::class, 'resetPassword'])
+            ->name('agents.reset-password');
+        Route::patch('agents/{agent}/update-permissions', [AgentController::class, 'updatePermissions'])
+            ->name('agents.update-permissions');
+    });
 });
 
 require __DIR__.'/auth.php';

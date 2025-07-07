@@ -292,6 +292,22 @@
                                    value="{{ date('Y-m-d') }}" readonly>
                         </div>
 
+                        <!-- User Account Section -->
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">User Account Creation</h3>
+                            <div class="flex items-center">
+                                <input type="checkbox" name="create_user_account" id="create_user_account" 
+                                       class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                       value="1" {{ old('create_user_account') ? 'checked' : '' }}>
+                                <label for="create_user_account" class="ml-2 block text-sm text-gray-900">
+                                    Create user account for this agent (allows them to login to the dashboard)
+                                </label>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-600">
+                                If checked, a username and password will be automatically generated for the agent to access the dashboard.
+                            </p>
+                        </div>
+
                         <!-- Submit Button -->
                         <div class="flex justify-end">
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

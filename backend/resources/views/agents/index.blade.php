@@ -16,6 +16,15 @@
                         </div>
                     @endif
 
+                    @if(session('user_credentials'))
+                        <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
+                            <strong>User Account Created!</strong><br>
+                            Username: <code class="bg-yellow-200 px-1 rounded">{{ session('user_credentials.username') }}</code><br>
+                            Password: <code class="bg-yellow-200 px-1 rounded">{{ session('user_credentials.password') }}</code><br>
+                            <small>Please save these credentials securely.</small>
+                        </div>
+                    @endif
+
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
@@ -27,6 +36,7 @@
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobile</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Active</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User Account</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
@@ -62,6 +72,20 @@
                                                 {{ $agent->active }}
                                             </span>
                                         </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            @if($agent->hasUserAccount())
+                                                <div class="flex flex-col">
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full mb-1 {{ $agent->user->is_active ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800' }}">
+                                                        {{ $agent->user->is_active ? 'Active' : 'Inactive' }}
+                                                    </span>
+                                                    <span class="text-xs text-gray-500">{{ $agent->user->email }}</span>
+                                                </div>
+                                            @else
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                                    No Account
+                                                </span>
+                                            @endif
+                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <a href="{{ route('agents.show', $agent) }}" class="text-indigo-600 hover:text-indigo-900 mr-2">View</a>
                                             <a href="{{ route('agents.edit', $agent) }}" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
@@ -77,7 +101,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                        <td colspan="8" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                                             No agents found.
                                         </td>
                                     </tr>
