@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('properties', function (Blueprint $table) {
-            $table->foreignId('agent_id')->nullable()->after('user_id')->constrained('agents')->onDelete('set null');
+            $table->decimal('latitude', 10, 8)->nullable()->after('country');
+            $table->decimal('longitude', 11, 8)->nullable()->after('latitude');
         });
     }
 
@@ -22,8 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('properties', function (Blueprint $table) {
-            $table->dropForeign(['agent_id']);
-            $table->dropColumn('agent_id');
+            $table->dropColumn(['latitude', 'longitude']);
         });
     }
 };

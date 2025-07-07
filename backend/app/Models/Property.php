@@ -22,6 +22,8 @@ class Property extends Model
         'state',
         'postal_code',
         'country',
+        'latitude',
+        'longitude',
         'bedrooms',
         'bathrooms',
         'square_feet',
