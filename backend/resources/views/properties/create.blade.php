@@ -168,6 +168,41 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+
+                        <!-- Get Coordinates Button -->
+                        <div class="md:col-span-2">
+                            <button type="button" id="getCoordinatesBtn" 
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200">
+                                🗺️ Get Coordinates from Address
+                            </button>
+                            <p class="mt-2 text-sm text-gray-600">
+                                Click to automatically fetch latitude and longitude based on the address above.
+                            </p>
+                        </div>
+
+                        <!-- Latitude -->
+                        <div>
+                            <label for="latitude" class="block text-sm font-medium text-gray-700">Latitude</label>
+                            <input type="number" name="latitude" id="latitude" value="{{ old('latitude') }}" step="0.00000001" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                   placeholder="e.g., 40.7128" readonly>
+                            <p class="mt-1 text-xs text-gray-500">Will be populated automatically when you get coordinates</p>
+                            @error('latitude')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Longitude -->
+                        <div>
+                            <label for="longitude" class="block text-sm font-medium text-gray-700">Longitude</label>
+                            <input type="number" name="longitude" id="longitude" value="{{ old('longitude') }}" step="0.00000001" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                   placeholder="e.g., -74.0060" readonly>
+                            <p class="mt-1 text-xs text-gray-500">Will be populated automatically when you get coordinates</p>
+                            @error('longitude')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
                 </div>
 
@@ -525,5 +560,117 @@
                 previewSection.classList.remove('hidden');
             }
         }
+
+        // Geocoding functionality
+        document.getElementById('getCoordinatesBtn').addEventListener('click', async function() {
+            const button = this;
+            const originalText = button.textContent;
+            
+            // Get address fields
+            const address = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const state = document.getElementById('state').value.trim();
+            const postalCode = document.getElementById('postal_code').value.trim();
+            const country = document.getElementById('country').value || 'US';
+            
+            // Validate required fields
+            if (!address || !city || !state || !postalCode) {
+                alert('Please fill in all required address fields (Address, City, State, Postal Code) before getting coordinates.');
+                return;
+            }
+            
+            // Update button state
+            button.disabled = true;
+            button.textContent = '🔄 Getting coordinates...';
+            button.className = 'bg-gray-400 text-white font-bold py-2 px-4 rounded cursor-not-allowed';
+            
+            try {
+                // Try multiple address variations for better success rate
+                const addressVariations = [
+                    // Full address
+                    [address, city, state, postalCode, country].filter(Boolean).join(', '),
+                    // Without postal code
+                    [address, city, state, country].filter(Boolean).join(', '),
+                    // Just city and state/country
+                    [city, state, country].filter(Boolean).join(', '),
+                    // Simplified address (remove complex parts)
+                    [address.replace(/^(PT|LOT|UNIT|SUITE|APT)\s*\d+[A-Z]?,?\s*/i, '').replace(/,?\s*(Seksyen|Section)\s*\d+,?\s*/i, ''), city, state, postalCode, country].filter(Boolean).join(', ')
+                ];
+                
+                let coordinates = null;
+                let lastError = null;
+                
+                for (let i = 0; i < addressVariations.length; i++) {
+                    const fullAddress = addressVariations[i];
+                    console.log(`Trying address variation ${i + 1}: ${fullAddress}`);
+                    
+                    try {
+                        // Call OpenStreetMap Nominatim API with better parameters
+                        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}&limit=3&addressdetails=1&countrycodes=${country.toLowerCase()}`, {
+                            headers: {
+                                'User-Agent': 'QHomes-PropertyApp/1.0'
+                            }
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+                        
+                        const data = await response.json();
+                        console.log(`Response for variation ${i + 1}:`, data);
+                        
+                        if (data.length > 0 && data[0].lat && data[0].lon) {
+                            coordinates = {
+                                latitude: parseFloat(data[0].lat).toFixed(8),
+                                longitude: parseFloat(data[0].lon).toFixed(8),
+                                formatted_address: data[0].display_name || fullAddress,
+                                variation_used: i + 1
+                            };
+                            break;
+                        }
+                        
+                    } catch (error) {
+                        lastError = error;
+                        console.error(`Error with variation ${i + 1}:`, error);
+                    }
+                    
+                    // Add delay between requests to be respectful to the API
+                    if (i < addressVariations.length - 1) {
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    }
+                }
+                
+                if (coordinates) {
+                    // Populate latitude and longitude fields
+                    document.getElementById('latitude').value = coordinates.latitude;
+                    document.getElementById('longitude').value = coordinates.longitude;
+                    
+                    // Show success message
+                    button.textContent = `✅ Found (variation ${coordinates.variation_used})`;
+                    button.className = 'bg-green-600 text-white font-bold py-2 px-4 rounded';
+                    
+                    console.log('Coordinates found:', coordinates);
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.className = 'bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200';
+                        button.disabled = false;
+                    }, 3000);
+                    
+                } else {
+                    throw new Error(lastError ? lastError.message : 'No coordinates found for any address variation');
+                }
+                
+            } catch (error) {
+                console.error('Geocoding error:', error);
+                alert('Error getting coordinates: ' + error.message + '. Please check the address and try again.\n\nTips:\n- Try using a simpler address format\n- Ensure the city and state/country are correct\n- For Malaysian addresses, try using just the main road name');
+                
+                // Reset button
+                button.textContent = originalText;
+                button.className = 'bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200';
+                button.disabled = false;
+            }
+        });
     </script>
 </x-admin-layout>

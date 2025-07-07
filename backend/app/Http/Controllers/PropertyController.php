@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use App\Services\GeocodingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -47,6 +48,8 @@ class PropertyController extends Controller
             'state' => 'required|string|max:100',
             'postal_code' => 'required|string|max:20',
             'country' => 'nullable|string|max:100',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'bedrooms' => 'nullable|integer|min:0',
             'bathrooms' => 'nullable|numeric|min:0',
             'square_feet' => 'nullable|integer|min:0',
@@ -100,6 +103,21 @@ class PropertyController extends Controller
         // Set images field (empty array if no images, or the images array if there are images)
         $validated['images'] = !empty($images) ? $images : null;
 
+        // Geocode the address to get latitude and longitude
+        $geocodingService = new GeocodingService();
+        $coordinates = $geocodingService->getCoordinates(
+            $validated['address'],
+            $validated['city'],
+            $validated['state'],
+            $validated['postal_code'],
+            $validated['country'] ?? 'US'
+        );
+
+        if ($coordinates) {
+            $validated['latitude'] = $coordinates['latitude'];
+            $validated['longitude'] = $coordinates['longitude'];
+        }
+
         Property::create($validated);
 
         return redirect()->route('properties.index')
@@ -141,6 +159,8 @@ class PropertyController extends Controller
             'state' => 'required|string|max:100',
             'postal_code' => 'required|string|max:20',
             'country' => 'nullable|string|max:100',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'bedrooms' => 'nullable|integer|min:0',
             'bathrooms' => 'nullable|numeric|min:0',
             'square_feet' => 'nullable|integer|min:0',
@@ -229,6 +249,31 @@ class PropertyController extends Controller
         // Remove the separate country code field
         unset($validated['agent_phone_country']);
 
+        // Check if address-related fields have changed and geocode if necessary
+        $addressChanged = (
+            $property->address !== $validated['address'] ||
+            $property->city !== $validated['city'] ||
+            $property->state !== $validated['state'] ||
+            $property->postal_code !== $validated['postal_code'] ||
+            $property->country !== ($validated['country'] ?? 'US')
+        );
+
+        if ($addressChanged) {
+            $geocodingService = new GeocodingService();
+            $coordinates = $geocodingService->getCoordinates(
+                $validated['address'],
+                $validated['city'],
+                $validated['state'],
+                $validated['postal_code'],
+                $validated['country'] ?? 'US'
+            );
+
+            if ($coordinates) {
+                $validated['latitude'] = $coordinates['latitude'];
+                $validated['longitude'] = $coordinates['longitude'];
+            }
+        }
+
         $property->update($validated);
 
         $message = 'Property updated successfully!';
@@ -278,15 +323,46 @@ class PropertyController extends Controller
                     'listing_type' => ucwords(str_replace('_', ' ', $property->status)),
                     'price' => $property->price,
                     'currency' => $property->currency ?? 'USD',
-                    'location' => $property->city . ', ' . $property->state,
+                    
+                    // Complete address information
+                    'address' => $property->address,
+                    'city' => $property->city,
+                    'state' => $property->state,
+                    'postal_code' => $property->postal_code,
+                    'country' => $property->country ?? 'US',
+                    'location' => $property->city . ', ' . $property->state, // Keep for backwards compatibility
+                    'full_address' => trim($property->address . ', ' . $property->city . ', ' . $property->state . ' ' . $property->postal_code . ', ' . ($property->country ?? 'US')),
+                    
+                    // Coordinates
+                    'latitude' => $property->latitude,
+                    'longitude' => $property->longitude,
+                    
+                    // Property details
                     'bedrooms' => $property->bedrooms ?? 0,
                     'bathrooms' => $property->bathrooms ?? 0,
                     'area_size' => $property->square_feet ?? 0,
+                    'sqft' => $property->square_feet ?? 0, // Add sqft for consistency
+                    'type' => $property->type, // Add raw type
+                    'status' => $property->status, // Add raw status
+                    
+                    // Media and content
                     'images' => $images,
                     'description' => $property->description,
-                    'agent_name' => $property->agent_name,
-                    'agent_phone' => $property->agent_phone,
-                    'agent_email' => $property->agent_email,
+                    'features' => $property->features,
+                    
+                    // Agent information
+                    'agent' => [
+                        'name' => $property->agent_name,
+                        'phone' => $property->agent_phone,
+                        'email' => $property->agent_email,
+                    ],
+                    
+                    // Additional info
+                    'year_built' => $property->year_built,
+                    'lot_size' => $property->lot_size,
+                    'property_id' => $property->property_id,
+                    'created_at' => $property->created_at,
+                    'updated_at' => $property->updated_at,
                 ];
             });
 
@@ -318,15 +394,52 @@ class PropertyController extends Controller
             'listing_type' => ucwords(str_replace('_', ' ', $property->status)),
             'price' => $property->price,
             'currency' => $property->currency ?? 'USD',
-            'location' => $property->city . ', ' . $property->state,
+            
+            // Complete address information
+            'address' => $property->address,
+            'city' => $property->city,
+            'state' => $property->state,
+            'postal_code' => $property->postal_code,
+            'country' => $property->country ?? 'US',
+            'location' => $property->city . ', ' . $property->state, // Keep for backwards compatibility
+            'full_address' => trim($property->address . ', ' . $property->city . ', ' . $property->state . ' ' . $property->postal_code . ', ' . ($property->country ?? 'US')),
+            
+            // Coordinates
+            'latitude' => $property->latitude,
+            'longitude' => $property->longitude,
+            
+            // Property details
             'bedrooms' => $property->bedrooms ?? 0,
             'bathrooms' => $property->bathrooms ?? 0,
             'area_size' => $property->square_feet ?? 0,
+            'sqft' => $property->square_feet ?? 0, // Add sqft for consistency
+            'type' => $property->type, // Add raw type
+            'status' => $property->status, // Add raw status
+            
+            // Media and content
             'images' => $images,
             'description' => $property->description,
-            'agent_name' => $property->agent_name,
-            'agent_phone' => $property->agent_phone,
-            'agent_email' => $property->agent_email,
+            'features' => $property->features,
+            
+            // Agent information
+            'agent' => [
+                'name' => $property->agent_name,
+                'phone' => $property->agent_phone,
+                'email' => $property->agent_email,
+            ],
+            
+            // Additional property info
+            'year_built' => $property->year_built,
+            'lot_size' => $property->lot_size,
+            'property_id' => $property->property_id,
+            'virtual_tour_link' => $property->virtual_tour_link,
+            'key_features' => $property->key_features,
+            'availability_date' => $property->availability_date,
+            'is_featured' => $property->is_featured,
+            'is_active' => $property->is_active,
+            'views' => $property->views,
+            'created_at' => $property->created_at,
+            'updated_at' => $property->updated_at,
         ];
 
         return response()->json($formattedProperty);

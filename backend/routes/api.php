@@ -63,3 +63,35 @@ Route::post('/logout', function (Request $request) {
 // Properties API routes for frontend
 Route::get('/properties', [PropertyController::class, 'apiIndex']);
 Route::get('/properties/{id}', [PropertyController::class, 'apiShow']);
+
+// Geocoding test endpoint
+Route::post('/geocode', function (Request $request) {
+    $request->validate([
+        'address' => 'required|string',
+        'city' => 'nullable|string',
+        'state' => 'nullable|string',
+        'postal_code' => 'nullable|string',
+        'country' => 'nullable|string'
+    ]);
+
+    $geocodingService = new \App\Services\GeocodingService();
+    $coordinates = $geocodingService->getCoordinates(
+        $request->address,
+        $request->city,
+        $request->state,
+        $request->postal_code,
+        $request->country ?? 'US'
+    );
+
+    if ($coordinates) {
+        return response()->json([
+            'success' => true,
+            'data' => $coordinates
+        ]);
+    } else {
+        return response()->json([
+            'success' => false,
+            'message' => 'Could not geocode the provided address'
+        ], 422);
+    }
+});
