@@ -141,3 +141,92 @@ a {
 
 
 
+/* Overlay Cards */
+.property-popup-card {
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  width: 250px;
+  height: 200px;
+  background-color: #222;
+  padding: 0;
+  position: relative;
+  z-index: 50;
+}
+
+.property-popup-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 2;
+  font-size: 18px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.property-popup-details {
+  padding: 5px;
+}
+
+.property-popup-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.property-popup-noimage {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.property-popup-description {
+  margin-top: 0px;
+}
+
+.property-popup-title {
+  font-weight: 500;
+  font-size: 0.9rem;
+  height: 1rem;
+}
+
+.property-popup-location {
+  color: #666;
+  font-size: 0.8rem;
+  height: 1rem;
+}
+
+.property-popup-price-type {
+  display: flex;
+  align-items: center;
+  height: 1rem;
+  margin-bottom: 2px;
+}
+
+.property-popup-pricing {
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.property-popup-type {
+  color: #888;
+  margin-right: 2px;
+  font-size: 0.6rem;
+}
+
+
+
