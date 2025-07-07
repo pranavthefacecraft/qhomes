@@ -17,9 +17,14 @@ class PropertyController extends Controller
      */
     public function index(): View
     {
-        $properties = Property::where('user_id', Auth::id())
-            ->orderBy('created_at', 'desc')
-            ->paginate(12);
+        $query = Property::query();
+        
+        // Super admin can see all properties, agents can only see their own
+        if (Auth::user()->isAgent()) {
+            $query->where('user_id', Auth::id());
+        }
+        
+        $properties = $query->orderBy('created_at', 'desc')->paginate(12);
 
         return view('properties.index', compact('properties'));
     }

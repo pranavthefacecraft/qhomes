@@ -45,4 +45,28 @@ class Agent extends Model
         'ren_expired_date' => 'date',
         'last_modified_date' => 'datetime',
     ];
+
+    /**
+     * Get the user associated with the agent.
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
+    /**
+     * Check if agent has a user account.
+     */
+    public function hasUserAccount(): bool
+    {
+        return $this->user()->exists();
+    }
+
+    /**
+     * Get the agent's display name or agent name as fallback.
+     */
+    public function getDisplayNameAttribute(): string
+    {
+        return $this->attributes['display_name'] ?: $this->agent_name;
+    }
 }
