@@ -46,15 +46,15 @@ const UpdatedMap = () => {
           new Promise(resolve => {
             // Log the address being geocoded
            
-            geocoder.geocode({ address: property.location_extra}, (results, status) => {
+            geocoder.geocode({ address: property.location}, (results, status) => {
               if (status === 'OK' && results[0]) {
-                console.log('Geocoding:', property.location_extra, property.id, property.title);
+                console.log('Geocoding:', property.title, property.longitude, property.latitude);
                 
                 resolve({
                   id: property.id,
                   position: {
-                    lat: results[0].geometry.location.lat(),
-                    lng: results[0].geometry.location.lng(),
+                    lat: property.latitude,
+                    lng: property.longitude,
                   },
                   title: property.title,
                   price: property.price,
