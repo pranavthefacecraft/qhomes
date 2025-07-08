@@ -53,7 +53,7 @@
                         <!-- Property Status -->
                         <div>
                             <label for="status" class="block text-sm font-medium text-gray-700">Status *</label>
-                            <select name="status" id="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                            <select name="status" id="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required onchange="togglePriceFields()">
                                 <option value="">Select Status</option>
                                 <option value="for_sale" {{ old('status') == 'for_sale' ? 'selected' : '' }}>For Sale</option>
                                 <option value="for_rent" {{ old('status') == 'for_rent' ? 'selected' : '' }}>For Rent</option>
@@ -66,18 +66,50 @@
                             @enderror
                         </div>
 
-                        <!-- Price -->
-                        <div>
-                            <label for="price" class="block text-sm font-medium text-gray-700">Price *</label>
+                        <!-- Sale Price (For Sale properties) -->
+                        <div id="sale-price-field" style="display: none;">
+                            <label for="sale_price" class="block text-sm font-medium text-gray-700">Sale Price *</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span class="text-gray-500 sm:text-sm">$</span>
                                 </div>
-                                <input type="number" name="price" id="price" value="{{ old('price') }}" 
+                                <input type="number" name="sale_price" id="sale_price" value="{{ old('sale_price') }}" 
                                        class="pl-7 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
-                                       placeholder="0.00" step="0.01" min="0" required>
+                                       placeholder="0.00" step="0.01" min="0">
                             </div>
-                            @error('price')
+                            @error('sale_price')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Monthly Rent Price (For Rent properties) -->
+                        <div id="monthly-price-field" style="display: none;">
+                            <label for="price_per_month" class="block text-sm font-medium text-gray-700">Monthly Rent *</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm">$</span>
+                                </div>
+                                <input type="number" name="price_per_month" id="price_per_month" value="{{ old('price_per_month') }}" 
+                                       class="pl-7 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                       placeholder="0.00" step="0.01" min="0">
+                            </div>
+                            @error('price_per_month')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Daily Rent Price (For Rent properties) -->
+                        <div id="daily-price-field" style="display: none;">
+                            <label for="price_per_day" class="block text-sm font-medium text-gray-700">Daily Rent (Optional)</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm">$</span>
+                                </div>
+                                <input type="number" name="price_per_day" id="price_per_day" value="{{ old('price_per_day') }}" 
+                                       class="pl-7 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                       placeholder="0.00" step="0.01" min="0">
+                            </div>
+                            @error('price_per_day')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -669,6 +701,37 @@
                 button.className = 'bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200';
                 button.disabled = false;
             }
+        });
+
+        // Toggle price fields based on property status
+        function togglePriceFields() {
+            const status = document.getElementById('status').value;
+            const saleField = document.getElementById('sale-price-field');
+            const monthlyField = document.getElementById('monthly-price-field');
+            const dailyField = document.getElementById('daily-price-field');
+            
+            // Hide all fields first
+            saleField.style.display = 'none';
+            monthlyField.style.display = 'none';
+            dailyField.style.display = 'none';
+            
+            // Clear required attributes
+            document.getElementById('sale_price').required = false;
+            document.getElementById('price_per_month').required = false;
+            
+            if (status === 'for_sale' || status === 'sold') {
+                saleField.style.display = 'block';
+                document.getElementById('sale_price').required = true;
+            } else if (status === 'for_rent' || status === 'rented') {
+                monthlyField.style.display = 'block';
+                dailyField.style.display = 'block';
+                document.getElementById('price_per_month').required = true;
+            }
+        }
+
+        // Initialize price fields on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            togglePriceFields();
         });
     </script>
 </x-admin-layout>
