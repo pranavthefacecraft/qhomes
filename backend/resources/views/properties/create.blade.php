@@ -10,9 +10,7 @@
         </div>
     </x-slot>
 
-    <x-slot name="sidebar">
-        <x-admin-sidebar />
-    </x-slot>
+
 
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6">
