@@ -46,7 +46,9 @@ class PropertyController extends Controller
             'title' => 'required|string|max:255',
             'type' => 'required|in:house,apartment,condo,townhouse,commercial,land,other',
             'status' => 'required|in:for_sale,for_rent,sold,rented,draft',
-            'price' => 'required|numeric|min:0',
+            'sale_price' => 'nullable|numeric|min:0',
+            'price_per_month' => 'nullable|numeric|min:0',
+            'price_per_day' => 'nullable|numeric|min:0',
             'currency' => 'nullable|string|max:3',
             'address' => 'required|string',
             'city' => 'required|string|max:100',
@@ -74,6 +76,17 @@ class PropertyController extends Controller
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
             'additional_images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:10240'
         ]);
+
+        // Additional validation based on status
+        if (in_array($validated['status'], ['for_sale', 'sold'])) {
+            if (empty($validated['sale_price'])) {
+                return back()->withErrors(['sale_price' => 'Sale price is required for properties that are for sale or sold.'])->withInput();
+            }
+        } elseif (in_array($validated['status'], ['for_rent', 'rented'])) {
+            if (empty($validated['price_per_month'])) {
+                return back()->withErrors(['price_per_month' => 'Monthly rent is required for rental properties.'])->withInput();
+            }
+        }
 
         // Handle image uploads
         $images = [];
@@ -157,7 +170,9 @@ class PropertyController extends Controller
             'title' => 'required|string|max:255',
             'type' => 'required|in:house,apartment,condo,townhouse,commercial,land,other',
             'status' => 'required|in:for_sale,for_rent,sold,rented,draft',
-            'price' => 'required|numeric|min:0',
+            'sale_price' => 'nullable|numeric|min:0',
+            'price_per_month' => 'nullable|numeric|min:0',
+            'price_per_day' => 'nullable|numeric|min:0',
             'currency' => 'nullable|string|max:3',
             'address' => 'required|string',
             'city' => 'required|string|max:100',
@@ -187,6 +202,17 @@ class PropertyController extends Controller
             'remove_main_image' => 'nullable|string',
             'remove_additional_images' => 'nullable|string'
         ]);
+
+        // Additional validation based on status
+        if (in_array($validated['status'], ['for_sale', 'sold'])) {
+            if (empty($validated['sale_price'])) {
+                return back()->withErrors(['sale_price' => 'Sale price is required for properties that are for sale or sold.'])->withInput();
+            }
+        } elseif (in_array($validated['status'], ['for_rent', 'rented'])) {
+            if (empty($validated['price_per_month'])) {
+                return back()->withErrors(['price_per_month' => 'Monthly rent is required for rental properties.'])->withInput();
+            }
+        }
 
         // Start with existing images
         $images = $property->images ?? [];

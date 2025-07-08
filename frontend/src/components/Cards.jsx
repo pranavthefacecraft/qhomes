@@ -140,9 +140,9 @@ const Cards = () => {
 
         {/* Details */}
         <div className="description">
-          <Link to={`/property/${property.id}`}>
-            <div className="title">{property.title}</div>
-          </Link>
+          
+            <div className="title"><Link to={`/property/${property.id}`}>{property.title}</Link></div>
+          
           
           <div className="location">{property.location}</div>
           <div className="price-type">
@@ -154,13 +154,13 @@ const Cards = () => {
                 <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
-                {property.bedrooms} Beds
+                {property.bedrooms} 
               </div>
               <div className="feature flex items-center">
                 <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
                 </svg>
-                {property.bathrooms} Baths
+                {property.bathrooms} 
               </div>
               <div className="feature flex items-center">
                 <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

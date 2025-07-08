@@ -15,7 +15,9 @@ class Property extends Model
         'title',
         'type',
         'status',
-        'price',
+        'sale_price',
+        'price_per_month',
+        'price_per_day',
         'currency',
         'address',
         'city',
@@ -61,7 +63,27 @@ class Property extends Model
 
     public function getFormattedPriceAttribute(): string
     {
-        return number_format($this->price, 2) . ' ' . $this->currency;
+        if ($this->status === 'for_rent') {
+            $prices = [];
+            if ($this->price_per_month) {
+                $prices[] = number_format($this->price_per_month, 2) . ' ' . $this->currency . '/month';
+            }
+            if ($this->price_per_day) {
+                $prices[] = number_format($this->price_per_day, 2) . ' ' . $this->currency . '/day';
+            }
+            return implode(' | ', $prices) ?: 'Price not set';
+        } else {
+            return $this->sale_price ? number_format($this->sale_price, 2) . ' ' . $this->currency : 'Price not set';
+        }
+    }
+
+    public function getDisplayPriceAttribute(): string
+    {
+        if ($this->status === 'for_rent') {
+            return $this->price_per_month ? number_format($this->price_per_month, 2) . ' ' . $this->currency . '/mo' : 'Contact for price';
+        } else {
+            return $this->sale_price ? number_format($this->sale_price, 2) . ' ' . $this->currency : 'Contact for price';
+        }
     }
 
     public function getTypeDisplayAttribute(): string
