@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
 use Illuminate\Support\Facades\Route;
@@ -126,7 +127,13 @@ Route::middleware('auth')->group(function () {
     // Property routes
     Route::resource('properties', PropertyController::class);
     
-    // Agent routes (Super Admin only)
+    // Listings management routes
+    Route::get('/listings', [ListingController::class, 'index'])->name('listings.index');
+    Route::post('/listings/{property}/toggle-featured', [ListingController::class, 'toggleFeatured'])->name('listings.toggle-featured');
+    Route::post('/listings/{property}/toggle-active', [ListingController::class, 'toggleActive'])->name('listings.toggle-active');
+    Route::post('/listings/bulk-action', [ListingController::class, 'bulkAction'])->name('listings.bulk-action');
+
+    // Super admin only routes
     Route::middleware('super_admin')->group(function () {
         Route::resource('agents', AgentController::class);
         Route::post('agents/{agent}/create-user-account', [AgentController::class, 'createUserAccount'])
