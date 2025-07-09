@@ -332,7 +332,7 @@
                         <!-- Description -->
                         <div>
                             <label for="description" class="block text-sm font-medium text-gray-700">Property Description</label>
-                            <textarea name="description" id="description" rows="6" 
+                            <textarea name="description" id="description" rows="10" 
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
                                       placeholder="Provide a detailed description of the property...">{{ old('description', $property->description) }}</textarea>
                             @error('description')
@@ -800,5 +800,33 @@
         document.addEventListener('DOMContentLoaded', function() {
             togglePriceFields();
         });
+
+        // Initialize TinyMCE for description field
+        tinymce.init({
+            selector: '#description',
+            height: 400,
+            menubar: false,
+            plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'table', 'wordcount'
+            ],
+            toolbar: 'undo redo | blocks | ' +
+                'bold italic forecolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | table | link | preview code',
+            content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif; font-size: 14px; }',
+            branding: false,
+            resize: true,
+            statusbar: false,
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            }
+        });
     </script>
+
+    <!-- TinyMCE CDN -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </x-admin-layout>
