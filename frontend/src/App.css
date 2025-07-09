@@ -22,64 +22,6 @@ a {
 }
 
 
-
-
-.searchbar-form {
-  width: 80%;
-  position: relative;
-  font-family: "Rubik", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 200;
-  font-style: normal;
-}
-
-.searchbar-input-wrapper {
-  position: relative;
-}
-
-.searchbar-input {
-  width: 100%;
-  padding: 1rem;
-  background-color: #BACEF9;
-  border-radius: 9999px;
-  color: #374151;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-}
-
-.searchbar-btn {
-  position: absolute;
-  right: 0.25rem;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 1rem;
-  background-color: #4E81EF; /* slate-600 */
-  border-radius: 9999px;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.searchbar-dropdown {
-  position: absolute;
-  top: 5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 1rem;
-  background-color: #1e293b; /* slate-800 */
-  color: #fff;
-  width: 100%;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  z-index: 10;
-}
-
 .tooltip-container {
   display: flex;
   flex-direction: column;
@@ -147,7 +89,6 @@ a {
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   width: 250px;
   height: 200px;
-  background-color: #222;
   padding: 0;
   position: relative;
   z-index: 50;
@@ -228,5 +169,136 @@ a {
   font-size: 0.6rem;
 }
 
+.airbnb-searchbar {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #dcdcdc;
+  border-radius: 9999px;
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+  max-width: 900px;
+  height: 40px;
+  width: 80%;
+  position: relative;
+}
 
+.filterbutton {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  height: 40px;
+  width: 100px;
+  margin-left: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6rem;
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+  display: flex;
+}
 
+.filter {
+  font-size: 13px;
+  font-weight: 500;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0.66rem 1rem;
+  gap: 0.5rem;
+}
+
+.filter-text {
+  margin-top: 0rem;
+}
+
+.filter-icon{
+  height: 16px;
+  width: 16px;
+  margin-top: 0.05rem;
+  margin-left: 0.1rem;
+}
+
+.drop-down {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 30%;
+}
+
+.arrow-icon {
+  height: 17px;
+  width: 17px;
+  margin-top: 0.6rem;
+  margin-right: 0.5rem;
+}
+
+.segment-label {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 0.48rem;
+  margin-left: 1.1rem;
+}
+
+.searcharea {
+  height: 100%;
+  width: 61.8%;
+}
+
+.searchbutton {
+  height: 80%;
+  width: 6.97%;
+  border-radius: 50%;
+  background-color: #6091ED;
+  cursor: pointer;
+}
+
+.button-icon {
+  position: relative;
+  left: 0.65rem;
+  top: 0.5rem;
+}
+
+.search-segment {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  cursor: pointer;
+  position: relative;
+}
+
+.search-input {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 1px;
+  margin-left: 20px;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #000000;
+}
+
+.search-icon {
+  position: relative;
+  height: 15px;
+  width: 15px;
+  margin-left: 1px;
+}
+
+input::-webkit-input-placeholder{
+    color:#000;
+}
+input::-moz-placeholder {
+    color:red;
+}

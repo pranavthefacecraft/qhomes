@@ -1,45 +1,51 @@
-import React, { useState } from 'react'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { words } from './data'
+import React, { useState } from 'react';
 
 const Searchbar = () => {
-    const [activeSearch, setActiveSearch] = useState([])
+  const [type, setType] = useState('Buy');
+  const [showDropdown, setShowDropdown] = useState(false);
 
-    const handleSearch = (e) => {
-        if (e.target.value === '') {
-            setActiveSearch([])
-            return false
-        }
-        setActiveSearch(words.filter(w => w.includes(e.target.value)).slice(0, 8))
-    }
+  return (
+    <>
+    <div className="airbnb-searchbar">
 
-    return (
-        <form className="searchbar-form">
-            <div className="searchbar-input-wrapper">
-                <input
-                    type="search"
-                    placeholder="Search Property"
-                    className="searchbar-input"
-                    onChange={handleSearch}
-                />
-                <button className="searchbar-btn">
-                    <AiOutlineSearch />
-                </button>
-            </div>
+        <div className="drop-down" onClick={() => setShowDropdown(!showDropdown)}>
 
-            {
-                activeSearch.length > 0 && (
-                    <div className="searchbar-dropdown">
-                        {
-                            activeSearch.map(s => (
-                                <span key={s}>{s}</span>
-                            ))
-                        }
-                    </div>
-                )
-            }
-        </form>
-    )
-}
+            <span className="segment-label">{type}</span>
+            <img src='/arrow-down.svg' className='arrow-icon'/> 
+            
 
-export default Searchbar
+        </div>
+
+        <div className="searcharea">
+            <div className="search-segment">
+            <img src='/search.svg' className='search-icon'/>  
+            <input
+              type="text"
+              placeholder="Search by location..."
+              className="search-input"
+            />
+           </div>
+        </div>
+        <div className="searchbutton">
+             <img src='/Container.svg' className='button-icon'/>
+        </div>
+
+
+
+        
+
+    </div>
+
+    {/* Filter Button */}
+    <div className="filterbutton">
+    <button className="filter">
+      <img src='/Vector.svg' className='filter-icon'/>
+      <span className='filter-text'>Filters</span>
+    </button>
+    </div>
+
+    </>
+  );
+};
+
+export default Searchbar;
