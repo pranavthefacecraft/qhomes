@@ -4,6 +4,8 @@ import axios from 'axios';
 import { GrFavorite } from 'react-icons/gr'
 import { IoShareSocialSharp } from "react-icons/io5";
 
+import { Carousel } from './ImageSlider';
+
 
 import useHoverStore from './store';
 
@@ -121,7 +123,6 @@ const Cards = () => {
      onMouseLeave={clearHoveredProperty}
 >
    {/* Image */}
-   <Link to={`/property/${property.id}`}>
      <div className="image">
        {property.images && property.images.length > 0 ? (
         <>
@@ -132,10 +133,16 @@ const Cards = () => {
             <img src='/frame.svg' alt="Bedrooms" className="icon" />
           </div>
 
-          <img
+          {/* <img
              src={`http://localhost:8000/storage/${property.images[0]}`}
              alt={property.title}
              className=""
+          /> */}
+          <Carousel
+           data={property.images.map((img, index) => ({
+             src: `http://localhost:8000/storage/${img}`,
+             alt: `${property.title} - Image ${index + 1}`
+           }))}
           />
 
           <div className="label">
@@ -155,10 +162,11 @@ const Cards = () => {
        )}
        
      </div>
-    </Link>
+    
     
   
     {/* Description Section */}
+    <Link to={`/property/${property.id}`}>
     <div className="description">
 
       <div className="title">{property.title}</div>
@@ -183,6 +191,7 @@ const Cards = () => {
       
 
     </div>
+    </Link>
 
 
     </div>
