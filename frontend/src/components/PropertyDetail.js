@@ -65,7 +65,10 @@ const PropertyDetail = () => {
 
     // Memoize images to prevent unnecessary re-renders
     const images = useMemo(() => {
-        return property?.images || ['/image.jpg'];
+        if (property?.images && property.images.length > 0) {
+            return property.images.map(img => `http://localhost:8000/storage/${img}`);
+        }
+        return ['/image.jpg'];
     }, [property?.images]);
 
     const displayImages = useMemo(() => {

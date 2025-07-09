@@ -22,6 +22,11 @@ const OptimizedImage = ({ src, alt, className, fallback = '/image.jpg', onClick,
         // If it starts with /, it's already relative to public
         if (imagePath.startsWith('/')) return imagePath;
         
+        // If it's a property image path from API, prefix with backend storage URL
+        if (imagePath.startsWith('property-images/')) {
+            return `http://localhost:8000/storage/${imagePath}`;
+        }
+        
         // Otherwise add the leading slash
         return `/${imagePath}`;
     };
