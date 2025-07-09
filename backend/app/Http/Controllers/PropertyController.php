@@ -352,7 +352,12 @@ class PropertyController extends Controller
                     'title' => $property->title,
                     'property_type' => ucfirst($property->type),
                     'listing_type' => ucwords(str_replace('_', ' ', $property->status)),
-                    'price' => $property->price,
+                    'price' => $property->status === 'for_rent' ? $property->price_per_month : $property->sale_price,
+                    'sale_price' => $property->sale_price,
+                    'price_per_month' => $property->price_per_month,
+                    'price_per_day' => $property->price_per_day,
+                    'display_price' => $property->display_price,
+                    'formatted_price' => $property->formatted_price,
                     'currency' => $property->currency ?? 'USD',
                     
                     // Complete address information
@@ -423,7 +428,12 @@ class PropertyController extends Controller
             'title' => $property->title,
             'property_type' => ucfirst($property->type),
             'listing_type' => ucwords(str_replace('_', ' ', $property->status)),
-            'price' => $property->price,
+            'price' => $property->status === 'for_rent' ? $property->price_per_month : $property->sale_price,
+            'sale_price' => $property->sale_price,
+            'price_per_month' => $property->price_per_month,
+            'price_per_day' => $property->price_per_day,
+            'display_price' => $property->display_price,
+            'formatted_price' => $property->formatted_price,
             'currency' => $property->currency ?? 'USD',
             
             // Complete address information

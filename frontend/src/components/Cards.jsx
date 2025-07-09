@@ -131,7 +131,7 @@ const Cards = () => {
           />
 
           <div className="label">
-            <span className="label-price">{formatPrice(property.sale_price, property.currency)}</span>
+            <span className="label-price">{property.display_price || formatPrice(property.price, property.currency)}</span>
             <span className="label-type">{property.type}</span>
           </div>
 
