@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Mews\Purifier\Facades\Purifier;
 use Illuminate\Http\RedirectResponse;
 
 class PropertyController extends Controller
@@ -114,6 +115,14 @@ class PropertyController extends Controller
         
         // Remove the separate country code field
         unset($validated['agent_phone_country']);
+
+        // Purify HTML content for security
+        if (isset($validated['description'])) {
+            $validated['description'] = Purifier::clean($validated['description']);
+        }
+        if (isset($validated['key_features'])) {
+            $validated['key_features'] = Purifier::clean($validated['key_features']);
+        }
 
         $validated['user_id'] = Auth::id();
         $validated['property_id'] = 'PROP-' . strtoupper(uniqid());
@@ -279,6 +288,14 @@ class PropertyController extends Controller
         
         // Remove the separate country code field
         unset($validated['agent_phone_country']);
+
+        // Purify HTML content for security
+        if (isset($validated['description'])) {
+            $validated['description'] = Purifier::clean($validated['description']);
+        }
+        if (isset($validated['key_features'])) {
+            $validated['key_features'] = Purifier::clean($validated['key_features']);
+        }
 
         // Check if address-related fields have changed and geocode if necessary
         $addressChanged = (

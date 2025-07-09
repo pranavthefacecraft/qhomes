@@ -202,7 +202,7 @@
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6">
                             <h3 class="text-lg font-medium text-gray-900 mb-4">Description</h3>
-                            <p class="text-gray-700 leading-relaxed">{{ $property->description }}</p>
+                            <div class="text-gray-700 leading-relaxed prose prose-sm max-w-none">{!! $property->description !!}</div>
                         </div>
                     </div>
                 @endif
