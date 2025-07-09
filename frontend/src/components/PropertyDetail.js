@@ -34,10 +34,10 @@ const PropertyDetail = () => {
         }
     }, [id]);
 
-    const formatPrice = (price) => {
+    const formatPrice = (price, currency = 'USD') => {
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
-            currency: 'USD',
+            currency: currency,
             minimumFractionDigits: 0,
             maximumFractionDigits: 0,
         }).format(price);
@@ -165,27 +165,12 @@ const PropertyDetail = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Navigation */}
-            <nav className="bg-white shadow-sm border-b">
-                <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-16">
-                        <Link to="/" className="flex items-center space-x-2">
-                            <span className="text-2xl font-bold text-blue-600">QHomes</span>
-                        </Link>
-                        <Link 
-                            to="/" 
-                            className="text-gray-600 hover:text-blue-600 transition duration-200"
-                        >
-                            ← Back to Properties
-                        </Link>
-                    </div>
-                </div>
-            </nav>
+           
 
             {/* Main Container */}
             <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8">
                 {/* Property Title Only */}
-                <div className="rounded-lg shadow-sm mb-6">
+                <div className="rounded-lg mb-6">
                     <h1 
                         className="font-bold text-gray-900 text-left" 
                         style={{ 
@@ -198,7 +183,7 @@ const PropertyDetail = () => {
                 </div>
 
                 {/* Image Grid */}
-                <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-8">
+                <div className="rounded-lg overflow-hidden mb-8">
                     <div className="grid grid-cols-2 gap-2" style={{ height: '480px' }}>
                         {/* Main large image - left side */}
                         <div 
@@ -320,12 +305,12 @@ const PropertyDetail = () => {
                 )}
 
                 {/* Main Content - 2 Columns */}
-                <div className="grid grid-cols-2 lg:grid-cols-2 gap-8">
-                    {/* Left Column - Property Details */}
-                    <div className="col-span-2 border" >
-                        {/* Address */}
-                        <div className="bg-white rounded-lg shadow-sm p-6">
-                            <p className="text-lg text-gray-600 mb-4">
+                <div className='content-property'>
+                <div class="flex flex-row">
+  
+  <div class="basis-2/3 mr-7">
+  <div className="">
+                            <p className="text-[16px] text-gray-600 mb-4">
                                 📍 {property.address}
                             </p>
                             <div className="flex flex-wrap gap-2">
@@ -344,8 +329,8 @@ const PropertyDetail = () => {
                                     </span>
                                 )}
                             </div>
+                            
                         </div>
-
                         {/* Property Details */}
                         <div className="bg-white rounded-lg shadow-sm p-6">
                             <h2 className="text-xl font-semibold text-gray-900 mb-4">Property Details</h2>
@@ -388,7 +373,6 @@ const PropertyDetail = () => {
                                 </div>
                             </div>
                         </div>
-
                         {/* Property Features Grid */}
                         <div className="bg-white rounded-lg shadow-sm p-6">
                             <h2 className="text-xl font-semibold text-gray-900 mb-6">Property Features</h2>
@@ -411,7 +395,6 @@ const PropertyDetail = () => {
                                 </div>
                             </div>
                         </div>
-
                         {/* Features List */}
                         {property.features && property.features.length > 0 && (
                             <div className="bg-white rounded-lg shadow-sm p-6">
@@ -434,18 +417,19 @@ const PropertyDetail = () => {
                                 {property.description || 'No description available for this property.'}
                             </p>
                         </div>
-                    </div>
-
-                    {/* Right Column - Price & Booking */}
-                    <div className="space-y-6">
-                        {/* Price & Booking Card */}
+                        
+  </div>
+  <div class="basis-1/3">
+  {/* Price & Booking Card */}
                         <div className="bg-white rounded-lg shadow-sm p-6 sticky top-4">
                             {/* Price */}
                             <div className="mb-6">
                                 <div className="text-3xl font-bold text-blue-600 mb-1">
-                                    {formatPrice(property.price)}
+                                    {property.display_price || formatPrice(property.price, property.currency)}
                                 </div>
-                                <p className="text-gray-600">per night</p>
+                                <p className="text-gray-600">
+                                    {property.status === 'for_rent' ? 'per month' : 'total price'}
+                                </p>
                             </div>
 
                             {/* Check-in & Check-out Calendar */}
@@ -503,10 +487,29 @@ const PropertyDetail = () => {
                                 <hr className="my-3" />
                                 <div className="flex justify-between font-semibold text-gray-900">
                                     <span>Total</span>
-                                    <span>{formatPrice(property.price + 75)}</span>
+                                    <span>{property.display_price || formatPrice((property.price || 0) + 75, property.currency)}</span>
                                 </div>
                             </div>
                         </div>
+  </div>
+</div>
+                </div>
+                <div className="grid grid-cols-2 lg:grid-cols-2 gap-8 border">
+                    {/* Left Column - Property Details */}
+                    <div className="col-span-2 border" >
+                        {/* Address */}
+                        
+
+                        
+
+                        
+
+                        
+                    </div>
+
+                    {/* Right Column - Price & Booking */}
+                    <div className="space-y-6">
+                        
 
                         {/* Agent Information */}
                         {property.agent && (
