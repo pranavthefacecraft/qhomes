@@ -249,13 +249,13 @@ a {
 
 .searcharea {
   height: 100%;
-  width: 62%;
+  width: 332px;
   margin-left: 0.4rem;
 }
 
 .searchbutton {
-  height: 80%;
-  width: 6.8%;
+  height: 30px;
+  width: 30px;
   border-radius: 50%;
   background-color: #6091ED;
   cursor: pointer;
@@ -263,7 +263,7 @@ a {
 
 .button-icon {
   position: relative;
-  left: 0.63rem;
+  left: 8px;
   top: 0.5rem;
 }
 

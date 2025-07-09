@@ -416,9 +416,12 @@ const PropertyDetail = () => {
                         {/* Description */}
                         <div className="roboto">
                             <h2 className="text-[18px] font-semibold text-gray-900 mt-4 mb-4">Description</h2>
-                            <p className="text-gray-700 leading-[20px] roboto text-[14px]">
-                                {property.description || 'No description available for this property.'}
-                            </p>
+                            <div 
+                                className="text-gray-700 leading-[20px] roboto text-[14px] prose prose-sm max-w-none"
+                                dangerouslySetInnerHTML={{ 
+                                    __html: property.description || 'No description available for this property.' 
+                                }}
+                            />
                         </div>
                         
   </div>
