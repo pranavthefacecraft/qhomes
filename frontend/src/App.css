@@ -391,6 +391,8 @@ input::-moz-placeholder {
   margin-top: 8px;
   overflow: hidden;
 }
+/* changes 
+*/
 
 .dropdown-item {
   padding: 10px 16px;
@@ -407,4 +409,13 @@ input::-moz-placeholder {
 .dropdown-item.active {
   color: #6091ED;
   background-color: #f0f5ff;
+}
+
+.slide {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.slide-hidden {
+  opacity: 0;
 }
