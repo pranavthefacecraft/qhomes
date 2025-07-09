@@ -125,7 +125,7 @@ const Cards = () => {
          <div className="image-wrapper">
 
           <img
-             src='/image.jpg'
+             src={`http://localhost:8000/storage/${property.images[0]}`}
              alt={property.title}
              className=""
           />
