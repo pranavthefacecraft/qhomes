@@ -309,17 +309,17 @@ const PropertyDetail = () => {
                 <div class="flex flex-row">
   
   <div class="basis-2/3 mr-7">
-  <div className="">
-                            <p className="text-[16px] text-gray-600 mb-4">
+  <div className="roboto">
+                            <p className="text-[14px] text-gray-600 mb-4">
                                 📍 {property.address}
                             </p>
                             <div className="flex flex-wrap gap-2">
-                                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                <span className={`px-3 py-1 rounded-full text-[12px] roboto ${
                                     property.status === 'available' 
-                                        ? 'bg-green-100 text-green-800'
+                                        ? 'bg-[#6091ED] text-white'
                                         : property.status === 'sold'
-                                        ? 'bg-red-100 text-red-800'
-                                        : 'bg-yellow-100 text-yellow-800'
+                                        ? 'bg-[#6091ED] text-white'
+                                        : 'bg-[#6091ED] text-white'
                                 }`}>
                                     {property.status ? property.status.charAt(0).toUpperCase() + property.status.slice(1) : 'Available'}
                                 </span>
@@ -332,12 +332,12 @@ const PropertyDetail = () => {
                             
                         </div>
                         {/* Property Details */}
-                        <div className="bg-white rounded-lg shadow-sm p-6">
-                            <h2 className="text-xl font-semibold text-gray-900 mb-4">Property Details</h2>
-                            <div className="space-y-3">
+                        <div className="roboto">
+                            <h2 className="text-[18px] font-semibold text-gray-900 mt-4 mb-4">Property Details</h2>
+                            <div className="space-y-3 text-[14px] ">
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Property Type:</span>
-                                    <span className="font-medium capitalize">{property.type}</span>
+                                    <span className="capitalize">{property.type}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Bedrooms:</span>
@@ -374,22 +374,22 @@ const PropertyDetail = () => {
                             </div>
                         </div>
                         {/* Property Features Grid */}
-                        <div className="bg-white rounded-lg shadow-sm p-6">
-                            <h2 className="text-xl font-semibold text-gray-900 mb-6">Property Features</h2>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <div className="roboto">
+                            <h2 className="text-[18px] font-semibold text-gray-900 mt-4 mb-4">Property Features</h2>
+                            <div className=" grid grid-cols-4 gap-4">
+                                <div className="text-center p-3 bg-white rounded-lg">
                                     <div className="text-2xl font-bold text-gray-900">{property.bedrooms}</div>
-                                    <div className="text-sm text-gray-600">Bedrooms</div>
+                                    <div className="text-sm text-black">Bedrooms</div>
                                 </div>
-                                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                                <div className="text-center p-3 bg-white rounded-lg">
                                     <div className="text-2xl font-bold text-gray-900">{property.bathrooms}</div>
                                     <div className="text-sm text-gray-600">Bathrooms</div>
                                 </div>
-                                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                                <div className="text-center p-3 bg-white rounded-lg">
                                     <div className="text-2xl font-bold text-gray-900">{property.sqft?.toLocaleString() || 'N/A'}</div>
                                     <div className="text-sm text-gray-600">Sq Ft</div>
                                 </div>
-                                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                                <div className="text-center p-3 bg-white rounded-lg">
                                     <div className="text-2xl font-bold text-gray-900 capitalize">{property.type}</div>
                                     <div className="text-sm text-gray-600">Property Type</div>
                                 </div>
@@ -397,8 +397,8 @@ const PropertyDetail = () => {
                         </div>
                         {/* Features List */}
                         {property.features && property.features.length > 0 && (
-                            <div className="bg-white rounded-lg shadow-sm p-6">
-                                <h2 className="text-xl font-semibold text-gray-900 mb-4">Features</h2>
+                            <div className="roboto">
+                                <h2 className="text-[18px] font-semibold text-gray-900 mt-4 mb-4">Features</h2>
                                 <div className="grid grid-cols-1 gap-2">
                                     {property.features.map((feature, index) => (
                                         <div key={index} className="flex items-center space-x-2">
@@ -411,9 +411,9 @@ const PropertyDetail = () => {
                         )}
 
                         {/* Description */}
-                        <div className="bg-white rounded-lg shadow-sm p-6">
-                            <h2 className="text-xl font-semibold text-gray-900 mb-4">Description</h2>
-                            <p className="text-gray-700 leading-relaxed">
+                        <div className="roboto">
+                            <h2 className="text-[18px] font-semibold text-gray-900 mt-4 mb-4">Description</h2>
+                            <p className="text-gray-700 leading-[20px] roboto text-[14px]">
                                 {property.description || 'No description available for this property.'}
                             </p>
                         </div>
@@ -423,11 +423,11 @@ const PropertyDetail = () => {
   {/* Price & Booking Card */}
                         <div className="bg-white rounded-lg shadow-sm p-6 sticky top-4">
                             {/* Price */}
-                            <div className="mb-6">
-                                <div className="text-3xl font-bold text-blue-600 mb-1">
+                            <div className="mb-4">
+                                <div className="text-[18px] roboto font-bold text-blue-600 mb-1">
                                     {property.display_price || formatPrice(property.price, property.currency)}
                                 </div>
-                                <p className="text-gray-600">
+                                <p className="text-gray-600 roboto text-[14px]">
                                     {property.status === 'for_rent' ? 'per month' : 'total price'}
                                 </p>
                             </div>
@@ -436,30 +436,30 @@ const PropertyDetail = () => {
                             <div className="space-y-4 mb-6">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label className="block roboto text-[14px] text-gray-700 mb-0">
                                             Check-in
                                         </label>
                                         <input 
                                             type="date" 
-                                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            className="w-full border border-gray-300 rounded-lg px-3 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label className="block roboto text-[14px] text-gray-700 mb-0">
                                             Check-out
                                         </label>
                                         <input 
                                             type="date" 
-                                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            className="w-full border border-gray-300 rounded-lg px-3 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         />
                                     </div>
                                 </div>
                                 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block roboto text-[14px] text-gray-700 mb-0">
                                         Guests
                                     </label>
-                                    <select className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <select className="w-full border border-gray-300 rounded-lg px-3 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                         <option value="1">1 guest</option>
                                         <option value="2">2 guests</option>
                                         <option value="3">3 guests</option>
@@ -494,18 +494,9 @@ const PropertyDetail = () => {
   </div>
 </div>
                 </div>
-                <div className="grid grid-cols-2 lg:grid-cols-2 gap-8 border">
+                <div className="grid grid-cols-2 lg:grid-cols-2 gap-8 border hidden">
                     {/* Left Column - Property Details */}
-                    <div className="col-span-2 border" >
-                        {/* Address */}
-                        
-
-                        
-
-                        
-
-                        
-                    </div>
+                    
 
                     {/* Right Column - Price & Booking */}
                     <div className="space-y-6">
