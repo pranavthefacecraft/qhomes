@@ -20,7 +20,11 @@ const UpdatedMap = () => {
 
   const [selectedProperty, setSelectedProperty] = useState(null);
 
-  const { hoveredPropertyId } = useHoverStore(); // <-- get hoveredPropertyId
+  const { 
+  hoveredPropertyId, 
+  setHoveredProperty, 
+  clearHoveredProperty 
+  } = useHoverStore();
 
 
   // Fetch properties from API
@@ -365,7 +369,7 @@ const UpdatedMap = () => {
             <NewMarker
               key={marker.id}
               position={marker.position}
-              hovered={hoveredPropertyId === marker.id}
+              propertyId={marker.id} // Pass propertyId to connect with cards
               onClick={() => handleMarkerClick(marker)}
             >
              <span className="marker-text text-xs font-bold flex items-center">

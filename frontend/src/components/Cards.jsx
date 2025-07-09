@@ -17,7 +17,11 @@ const Cards = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { setHoveredProperty, clearHoveredProperty } = useHoverStore();
+  const { 
+  hoveredPropertyId, 
+  setHoveredProperty, 
+  clearHoveredProperty 
+  } = useHoverStore();
 
 
   useEffect(() => {
@@ -117,11 +121,12 @@ const Cards = () => {
     
 
     {properties.map((property) => (
-    <div className="details"
+    <div 
+     className={`details ${hoveredPropertyId === property.id ? 'card-hovered' : ''}`}
      key={property.id}
      onMouseEnter={() => setHoveredProperty(property.id)}
      onMouseLeave={clearHoveredProperty}
->
+    >
    {/* Image */}
      <div className="image">
        {property.images && property.images.length > 0 ? (
@@ -177,7 +182,7 @@ const Cards = () => {
       <div className="features">
         <div className="feature">
           <img src='/home.svg' alt="Bedrooms" className="icon" />
-          <div className="feature-text">{property.bathrooms}</div>
+          <div className="feature-text">{property.bathrooms} m²</div>
         </div>
         <div className="feature">
           <img src='/bed.svg' alt="Bedrooms" className="icon" />

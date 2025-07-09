@@ -1,8 +1,12 @@
 import React from "react";
 import { OverlayView } from "@react-google-maps/api";
+import { Carousel } from './ImageSlider';
+import { Link } from 'react-router-dom';
+import { GrFavorite } from 'react-icons/gr';
+import { IoShareSocialSharp } from "react-icons/io5";
 
-const CARD_WIDTH = 200;
-const CARD_HEIGHT = 200;
+const CARD_WIDTH = 220; // Slightly smaller than Cards.jsx
+const CARD_HEIGHT = 250; // Adjusted height
 
 const PropertyCardOverlay = ({ property, onClose }) => {
   if (!property) return null;
@@ -22,96 +26,89 @@ const PropertyCardOverlay = ({ property, onClose }) => {
       mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
       getPixelPositionOffset={getPixelPositionOffset}
     >
-      <div
-        className="property-popup-card property-popup-card-custom z-50"
-        style={{
-          borderRadius: '18px', // custom radius
-          background: '#FAF7F3',    // black background
-          color: '#fff',         // white text for contrast
-          width: '250px',
-          minHeight: '240px',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
-          padding: 0,
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
+      <div className="details" style={{ 
+        width: `${CARD_WIDTH}px`, 
+        transform: 'scale(0.9)', // Slightly scale down
+        transformOrigin: 'top center'
+      }}>
         {/* Close button */}
         <button
           onClick={onClose}
           className="property-popup-close"
           aria-label="Close"
           style={{
-            background: 'rgba(255,255,255,0.2)',
-            color: '#fff',
+            position: 'absolute',
+            top: '8px',
+            right: '8px',
+            zIndex: 10,
+            background: 'rgba(78, 78, 78, 0.8)',
             border: 'none',
             borderRadius: '50%',
             width: '24px',
             height: '24px',
-            position: 'absolute',
-            top: '8px',
-            right: '8px',
-            zIndex: 2,
-            fontSize: '18px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            fontSize: '16px'
           }}
         >
           ×
         </button>
 
-        {/* Card Markup - order: image, title, location, price */}
-        <div style={{ width: '100%', height: '110px', background: '#FAF7F3', borderTopLeftRadius: '18px', borderTopRightRadius: '18px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {/* Image */}
+        <div className="image">
           {property.images && property.images.length > 0 ? (
-            <img
-              src="/image.jpg"
-              alt={property.title}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderTopLeftRadius: '18px',
-                borderTopRightRadius: '18px'
-              }}
-            />
+            <>
+              <div className="image-wrapper">
+
+                <Carousel
+                  data={property.images.map((img, index) => ({
+                    src: `http://localhost:8000/storage/${img}`,
+                    alt: `${property.title} - Image ${index + 1}`
+                  }))}
+                  style={{ height: '140px' }} // Slightly smaller height
+                />
+
+                <div className="label">
+                  <span className="label-price">{property.display_price || property.price}</span>
+                  <span className="label-type">{property.type}</span>
+                </div>
+              </div>
+            </>  
           ) : (
-            <div style={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: '#FAF7F3'
-            }}>
-              <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="#fff">
+            <div className="w-full h-full flex items-center justify-center text-gray-500">
+              <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
           )}
         </div>
-
-        {/* Description section */}
-        <div style={{
-          padding: '16px 16px 12px 16px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '8px',
-          flex: 1
-        }}>
-          <div style={{ fontSize: '1.05rem', fontWeight: 600, color: '#000', marginBottom: '2px', lineHeight: '1.25', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {property.title}
+        
+        {/* Description Section */}
+        <Link to={`/property/${property.id}`}>
+          <div className="description">
+            <div className="title">{property.title}</div>
+            <div className="location">
+              <img src='/location.svg' alt="Location" className="location-svg" style={{ marginTop: '0rem' }}/>
+              <div className="location-text">{property.location}</div>
+            </div>
+            <div className="features" >
+              <div className="feature" style={{ gap: '0.5px' }}>
+                <img src='/home.svg' alt="Home" className="icon" style={{ marginTop: '0rem' }}/>
+                <div className="feature-text" style={{ marginTop: '1px' }}>{property.bedrooms} m²</div>
+              </div>
+              <div className="feature" style={{ gap: '0.8px' }}>
+                <img src='/bed.svg' alt="Bed" className="icon" style={{ marginTop: '1px' }}/>
+                <div className="feature-text"  style={{ marginTop: '1px' }}>{property.bedrooms}</div>
+              </div>
+              <div className="feature" style={{ gap: '0.5px' }}>
+                <img src='/shower.svg' alt="Bath" className="icon" style={{ marginTop: '0rem' }}/>
+                <div className="feature-text"  style={{ marginTop: '1px' }}>{property.bathrooms}</div>
+              </div>
+            </div>
           </div>
-          <div style={{ fontSize: '0.92rem', color: '#bbb', marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {property.location}
-          </div>
-          <div style={{ fontWeight: 500, color: '#000', fontSize: '1rem', marginTop: '6px' }}>
-            {property.currency} {property.price?.toLocaleString()}
-          </div>
-        </div>
+        </Link>
       </div>
     </OverlayView>
   );
