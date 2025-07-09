@@ -141,7 +141,7 @@ const PropertyList = () => {
 
         <div className="price flex justify-between items-center">
           <span className="text-md font-bold text-primary-300">
-            {formatPrice(property.price, property.currency)}
+            {property.display_price || formatPrice(property.price, property.currency)}
           </span>
           <span className="type text-xs text-gray-500">{property.property_type}</span>
         </div>

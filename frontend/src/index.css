@@ -874,7 +874,7 @@ font-size: 30px;
 	flex-direction:column;
 	justify-content:center;
   align-items: center;
-  padding: 2rem;
+  padding: 2rem 2rem 2rem 0;
 }
 
 .map-container {

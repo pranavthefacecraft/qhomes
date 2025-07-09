@@ -133,13 +133,13 @@ const Cards = () => {
           </div>
 
           <img
-             src='/image.jpg'
+             src={`http://localhost:8000/storage/${property.images[0]}`}
              alt={property.title}
              className=""
           />
 
           <div className="label">
-            <span className="label-price">{formatPrice(property.sale_price, property.currency)}</span>
+            <span className="label-price">{property.display_price || formatPrice(property.price, property.currency)}</span>
             <span className="label-type">{property.type}</span>
           </div>
 
