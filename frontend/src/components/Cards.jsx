@@ -113,73 +113,71 @@ const Cards = () => {
 
     {properties.map((property) => (
       <div className="details"
-       key={property.id}
-       onMouseEnter={() => setHoveredProperty(property.id)}
-       onMouseLeave={clearHoveredProperty}
-       >
-        {/* Image */}
-        <Link to={`/property/${property.id}`}>
-        
-        <div className="image">
-          {property.images && property.images.length > 0 ? (
-              <img
-                src={`http://localhost:8000/storage/${property.images[0]}`}
-                alt={property.title}
-                className="w-full h-full object-cover rounded-lg"
-              />
-            ) : (
-              <div className="w-full h-48 flex items-center justify-center text-gray-500">
-                <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
-            )}
-        </div>
+     key={property.id}
+     onMouseEnter={() => setHoveredProperty(property.id)}
+     onMouseLeave={clearHoveredProperty}
+>
+   {/* Image */}
+   <Link to={`/property/${property.id}`}>
+     <div className="image">
+       {property.images && property.images.length > 0 ? (
+        <>
+         <div className="image-wrapper">
 
-        </Link>
+          <img
+             src='/image.jpg'
+             alt={property.title}
+             className=""
+          />
 
-        {/* Details */}
-        <div className="description">
-          
-            <div className="title"><Link to={`/property/${property.id}`}>{property.title}</Link></div>
-          
-          
-          <div className="location">{property.location}</div>
-          <div className="price-type">
-            <div className="pricing">{formatPrice(property.price, property.currency)}</div>
-            <div className="property-type">{property.property_type}</div>
+          <div className="label">
+            <span className="label-price">{formatPrice(property.sale_price, property.currency)}</span>
+            <span className="label-type">{property.type}</span>
           </div>
-          <div className="features">
-            <div className="feature flex items-center">
-                <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-                {property.bedrooms} 
-              </div>
-              <div className="feature flex items-center">
-                <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-                </svg>
-                {property.bathrooms} 
-              </div>
-              <div className="feature flex items-center">
-                <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                </svg>
-                {property.area_size} sqft
-              </div>
-          </div>
+
+
+         </div>
+        </>  
+       ) : (
+         <div className="w-full h-full flex items-center justify-center text-gray-500">
+           <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+           </svg>
+         </div>
+       )}
+       
+     </div>
+    </Link>
+    
+  
+    {/* Description Section */}
+    <div className="description">
+
+      <div className="title">{property.title}</div>
+      <div className="location">
+        <img src='/location.svg' alt="Bedrooms" className="location-svg" />
+        <div className="location-text">{property.location}</div>
+      </div>
+      <div className="features">
+        <div className="feature">
+          <img src='/home.svg' alt="Bedrooms" className="icon" />
+          <div className="feature-text">{property.bathrooms}</div>
         </div>
-        {/* Button */}
-        <div className="view-button">
-        <Link
-        to={`/property/${property.id}`}
-        className="button block border-primary-600 text-white hover:bg-primary-700 hover:text-white text-center text-sm font-medium"
-        >
-          View Property
-        </Link>
+        <div className="feature">
+          <img src='/bed.svg' alt="Bedrooms" className="icon" />
+          <div className="feature-text">{property.bathrooms}</div>
+        </div>
+        <div className="feature">
+          <img src='/shower.svg' alt="Bedrooms" className="icon" />
+          <div className="feature-text">{property.bathrooms}</div>
         </div>
       </div>
+      
+
+    </div>
+
+
+    </div>
     ))}
     </>
   );
