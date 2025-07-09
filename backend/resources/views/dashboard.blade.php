@@ -94,10 +94,10 @@
                     <a href="{{ route('properties.create') }}" class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200">
                         + Add New Property
                     </a>
-                    <a href="{{ route('properties.index') }}" class="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-200">
+                    <a href="{{ route('properties.index') }}" class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200">
                         📋 Manage Properties
                     </a>
-                    <a href="#" class="block w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition duration-200">
+                    <a href="#" class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200">
                         📊 View Analytics
                     </a>
                 </div>
