@@ -72,7 +72,7 @@
                         <!-- Property Details -->
                         <div class="space-y-2 mb-4">
                             <div class="text-2xl font-bold text-blue-600">
-                                ${{ number_format($property->price, 0) }} {{ $property->currency }}
+                                {{ $property->display_price }}
                             </div>
                             <div class="text-sm text-gray-600">
                                 <svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
