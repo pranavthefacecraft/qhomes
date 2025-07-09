@@ -10,6 +10,10 @@ const Content = () => {
   return (
   <div className="gallery">
     <div className="left">
+      <div className='headline'>
+        <span>Results for Kuala Lumpur</span>
+        <span>Over 1,000 places in Kuala Lumpur</span>
+      </div>
       <div className="detailsWrapper">
         <Cards/>
       </div>

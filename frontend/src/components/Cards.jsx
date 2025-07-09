@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { GrFavorite } from 'react-icons/gr'
+import { IoShareSocialSharp } from "react-icons/io5";
+
 
 import useHoverStore from './store';
 
@@ -112,7 +115,7 @@ const Cards = () => {
     
 
     {properties.map((property) => (
-      <div className="details"
+    <div className="details"
      key={property.id}
      onMouseEnter={() => setHoveredProperty(property.id)}
      onMouseLeave={clearHoveredProperty}
@@ -123,6 +126,11 @@ const Cards = () => {
        {property.images && property.images.length > 0 ? (
         <>
          <div className="image-wrapper">
+
+          <div className="card-icons">
+            <img src='/heart.svg' alt="Bedrooms" className="icon" />
+            <img src='/frame.svg' alt="Bedrooms" className="icon" />
+          </div>
 
           <img
              src='/image.jpg'

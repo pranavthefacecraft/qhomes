@@ -248,12 +248,12 @@ a {
 
 .searcharea {
   height: 100%;
-  width: 61.8%;
+  width: 62%;
 }
 
 .searchbutton {
   height: 80%;
-  width: 6.97%;
+  width: 6.8%;
   border-radius: 50%;
   background-color: #6091ED;
   cursor: pointer;
@@ -261,7 +261,7 @@ a {
 
 .button-icon {
   position: relative;
-  left: 0.65rem;
+  left: 0.63rem;
   top: 0.5rem;
 }
 
