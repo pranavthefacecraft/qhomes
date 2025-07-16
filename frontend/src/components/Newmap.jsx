@@ -44,51 +44,55 @@ const UpdatedMap = () => {
     fetchProperties();
   }, []);
 
-  // Geocode property addresses to marker positions
   useEffect(() => {
-    const geocodeAddresses = async () => {
-      if (!window.google || !window.google.maps) return;
-      const geocoder = new window.google.maps.Geocoder();
+  const geocodeAddresses = async () => {
+    if (!window.google || !window.google.maps) return;
+    const geocoder = new window.google.maps.Geocoder();
 
-      const markerPromises = properties.map(property =>
-          new Promise(resolve => {
-            // Log the address being geocoded
-           
-            geocoder.geocode({ address: property.location}, (results, status) => {
-              if (status === 'OK' && results[0]) {
-                // console.log('Geocoding:', property.title, property.longitude, property.latitude);
-                
-                resolve({
-                  id: property.id,
-                  position: {
-                    lat: property.latitude,
-                    lng: property.longitude,
-                  },
-                  title: property.title,
-                  price: property.price,
-                  currency: property.currency,
-                });
-              } else {
-                resolve(null);
-              }
-            });
-          })
-      );
+    const markerPromises = properties.map(property =>
+        new Promise(resolve => {
+          // Log the address being geocoded
+          console.log('Geocoding address:', property.full_address);
+          
+          geocoder.geocode({ address: property.full_address }, (results, status) => {
+            if (status === 'OK' && results[0]) {
+              const geocodedLat = results[0].geometry.location.lat();
+              const geocodedLng = results[0].geometry.location.lng();
+              
+              console.log('Geocoded coordinates for', property.title, ':', geocodedLat, geocodedLng);
+              
+              resolve({
+                id: property.id,
+                position: {
+                  lat: geocodedLat,   // Use geocoded latitude
+                  lng: geocodedLng,   // Use geocoded longitude
+                },
+                title: property.title,
+                price: property.price,
+                currency: property.currency,
+              });
+            } else {
+              console.log('Geocoding failed for:', property.title, 'Status:', status);
+              resolve(null);
+            }
+          });
+        })
+    );
 
-      const results = await Promise.all(markerPromises);
-      const validMarkers = results.filter(Boolean);
-      setMarkers(validMarkers);
+    const results = await Promise.all(markerPromises);
+    const validMarkers = results.filter(Boolean);
+    setMarkers(validMarkers);
 
-      // Center map on first marker if available
-      if (validMarkers.length > 0) {
-        setCenter(validMarkers[0].position);
-      }
-    };
-
-    if (properties.length > 0) {
-      geocodeAddresses();
+    // Center map on first marker if available
+    if (validMarkers.length > 0) {
+      setCenter(validMarkers[0].position);
     }
-  }, [properties]);
+  };
+
+  if (properties.length > 0) {
+    geocodeAddresses();
+  }
+}, [properties]);
 
 
   
