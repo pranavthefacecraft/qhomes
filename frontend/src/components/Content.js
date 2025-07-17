@@ -1,6 +1,7 @@
 import React, {useLayoutEffect} from 'react';
 import UpdatedMap from './Newmap';
 import Cards from './Cards';
+import ThreeDMap from './3Dmap';
 
 
 
@@ -20,7 +21,7 @@ const Content = () => {
     </div>
     <div className="right">
       <div className="map-container">
-        <UpdatedMap/>
+        <ThreeDMap/>
       </div>
     </div>
   </div>

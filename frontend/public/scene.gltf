@@ -1,0 +1,447 @@
+{
+  "accessors": [
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 22151,
+      "max": [
+        30.0,
+        -0.0,
+        10.0
+      ],
+      "min": [
+        -24.82200050354004,
+        -146.25,
+        -16.75
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 265812,
+      "componentType": 5126,
+      "count": 22151,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 56730,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 531624,
+      "componentType": 5126,
+      "count": 10739,
+      "max": [
+        24.850000381469727,
+        -101.23200225830078,
+        4.900000095367432
+      ],
+      "min": [
+        -19.722000122070313,
+        -180.5,
+        -4.699999809265137
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 660492,
+      "componentType": 5126,
+      "count": 10739,
+      "max": [
+        1.0,
+        0.9948018193244934,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 226920,
+      "componentType": 5125,
+      "count": 34380,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 789360,
+      "componentType": 5126,
+      "count": 175,
+      "max": [
+        11.810099601745605,
+        -77.23799896240234,
+        2.556999921798706
+      ],
+      "min": [
+        -6.6321001052856445,
+        -94.16200256347656,
+        -2.3369998931884766
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 791460,
+      "componentType": 5126,
+      "count": 175,
+      "max": [
+        0.8760923147201538,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -0.876103401184082,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 364440,
+      "componentType": 5125,
+      "count": 417,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 793560,
+      "componentType": 5126,
+      "count": 80,
+      "max": [
+        21.774999618530273,
+        -90.7979965209961,
+        2.556999921798706
+      ],
+      "min": [
+        -11.0,
+        -93.63800048828125,
+        -2.3369998931884766
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 794520,
+      "componentType": 5126,
+      "count": 80,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 366108,
+      "componentType": 5125,
+      "count": 216,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 795480,
+      "componentType": 5126,
+      "count": 20044,
+      "max": [
+        30.0,
+        -2.440000057220459,
+        10.0
+      ],
+      "min": [
+        -24.82200050354004,
+        -145.68800354003906,
+        -16.75
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 1036008,
+      "componentType": 5126,
+      "count": 20044,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 366972,
+      "componentType": 5125,
+      "count": 51573,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "NanoRay (https://sketchfab.com/NanoRay)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/petronas-twin-towers-4111f3de53f24ab0a9547205723665b1",
+      "title": "Petronas Twin Towers"
+    },
+    "generator": "Sketchfab-12.68.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 573264,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1276536,
+      "byteOffset": 573264,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 1849800,
+      "uri": "scene.bin"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "color_10658465",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.635294,
+          0.635294,
+          0.631373,
+          1.0
+        ],
+        "metallicFactor": 0.5016351744186046,
+        "roughnessFactor": 0.5099927325581395
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "color_13158600",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.784314,
+          0.784314,
+          0.784314,
+          1.0
+        ],
+        "metallicFactor": 0.5016351744186046,
+        "roughnessFactor": 0.0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "color_13750737",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.819608,
+          0.819608,
+          0.819608,
+          1.0
+        ],
+        "metallicFactor": 0.4667514534883721
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "color_5933430",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.352941,
+          0.537255,
+          0.462745,
+          1.0
+        ],
+        "metallicFactor": 0.4667514534883721,
+        "roughnessFactor": 0.0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "color_7180689",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.427451,
+          0.568627,
+          0.568627,
+          1.0
+        ],
+        "metallicFactor": 0.4493095930232558,
+        "roughnessFactor": 0.0
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Object_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0
+          },
+          "indices": 2,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Object_1",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 4,
+            "POSITION": 3
+          },
+          "indices": 5,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Object_2",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 7,
+            "POSITION": 6
+          },
+          "indices": 8,
+          "material": 2,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Object_3",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 10,
+            "POSITION": 9
+          },
+          "indices": 11,
+          "material": 3,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Object_4",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 13,
+            "POSITION": 12
+          },
+          "indices": 14,
+          "material": 4,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        4.8033446892643715e-32,
+        -1.6081226229577292e-16,
+        0.0,
+        -1.232595164407831e-32,
+        -1.0,
+        -4.440892098500626e-16,
+        0.0,
+        -1.6081226229577292e-16,
+        4.440892098500626e-16,
+        -1.0,
+        0.0,
+        -4.440892098500626e-16,
+        -93.6249237060547,
+        86.8749542236328,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "name": "tinker.obj.cleaner.materialmerger.gles"
+    },
+    {
+      "mesh": 0,
+      "name": "Object_2"
+    },
+    {
+      "mesh": 1,
+      "name": "Object_3"
+    },
+    {
+      "mesh": 2,
+      "name": "Object_4"
+    },
+    {
+      "mesh": 3,
+      "name": "Object_5"
+    },
+    {
+      "mesh": 4,
+      "name": "Object_6"
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
