@@ -1,0 +1,11 @@
+Model Information:
+* title:	Petronas Twin Towers
+* source:	https://sketchfab.com/3d-models/petronas-twin-towers-4111f3de53f24ab0a9547205723665b1
+* author:	NanoRay (https://sketchfab.com/NanoRay)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Petronas Twin Towers" (https://sketchfab.com/3d-models/petronas-twin-towers-4111f3de53f24ab0a9547205723665b1) by NanoRay (https://sketchfab.com/NanoRay) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
