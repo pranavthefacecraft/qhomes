@@ -34,8 +34,8 @@ const Cards = () => {
       setError(null);
       console.log('Fetching properties from API...');
       
-      // Update this URL to match your Laravel backend URL
-      const response = await axios.get('http://localhost:8000/api/properties');
+      // Using production API URL
+      const response = await axios.get('https://qhomesbackend.tfcmockup.com/api/properties');
       console.log('API Response:', response.data);
       console.log('API Response type:', typeof response.data);
       console.log('Is array?', Array.isArray(response.data));
@@ -139,13 +139,13 @@ const Cards = () => {
           </div>
 
           {/* <img
-             src={`http://localhost:8000/storage/${property.images[0]}`}
+             src={`https://qhomesbackend.tfcmockup.com/storage/${property.images[0]}`}
              alt={property.title}
              className=""
           /> */}
           <Carousel
            data={property.images.map((img, index) => ({
-             src: `http://localhost:8000/storage/${img}`,
+             src: `https://qhomesbackend.tfcmockup.com/storage/${img}`,
              alt: `${property.title} - Image ${index + 1}`
            }))}
           />

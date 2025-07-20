@@ -26,7 +26,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  pointer-events: none; /* Let clicks through to map */
+  pointer-events: none; 
   transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s cubic-bezier(.4,2,.6,1), filter 0.3s cubic-bezier(.4,2,.6,1);
   transform: scale(1);
 }
@@ -83,7 +83,6 @@ a {
 
 
 
-/* Overlay Cards */
 .property-popup-card {
   border-radius: 20px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
@@ -372,7 +371,7 @@ input::-moz-placeholder {
   background-color: grey;
 }
 
-/* Dropdown styles */
+
 .drop-down {
   position: relative;
   cursor: pointer;
@@ -391,8 +390,8 @@ input::-moz-placeholder {
   margin-top: 8px;
   overflow: hidden;
 }
-/* changes 
-*/
+
+
 
 .dropdown-item {
   padding: 10px 16px;
