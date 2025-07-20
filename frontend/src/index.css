@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Simple CSS without Tailwind for now */
+
 html,
 body {
   padding: 0;
@@ -37,7 +37,7 @@ a {
 
 
 
-/* Basic utility classes */
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -448,7 +448,7 @@ a {
   background-color: #e5e7eb;
 }
 
-/* Media queries */
+
 @media (min-width: 768px) {
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -485,7 +485,7 @@ a {
   }
 }
 
-/* Additional classes for PropertyDetail */
+
 .sticky {
   position: sticky;
 }
@@ -716,20 +716,6 @@ a {
 
 
 
-/* Header.css */
-
-
-/* .options {
-  font-size: 18px;
-  font-family: "Rubik", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 100;
-  font-style: normal;
-}
-
-.main {
-font-size: 30px;
-} */ */
 
 
 
@@ -760,9 +746,9 @@ font-size: 30px;
   justify-content: space-between;
 }
 
-/* ...existing code... */
+
 .logo {
-  flex: 0 0 30vw; /* or your preferred width */
+  flex: 0 0 30vw; 
   user-select: none;
   height: 100%;
   display: flex;
@@ -896,15 +882,13 @@ font-size: 30px;
   border-radius: 20px;
 }
 
-/* Cards */
 
-/* ----- CARD LAYOUT ----- */
 
 .detailsWrapper {
   width: 100%;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  grid-template-columns: repeat(3, 1fr); 
   gap: 1.5rem;
   padding: 2rem;
 }
@@ -935,11 +919,11 @@ font-size: 30px;
 
 .card-hovered {
   transform: scale(1.03);
-  z-index: 10; /* Ensure hovered card appears above others */
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* Optional: add shadow for depth */
+  z-index: 10; 
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
 }
 
-/* ----- IMAGE STYLING ----- */
+
 .image-wrapper {
   height: 200px;
   width: 100%;
@@ -949,7 +933,7 @@ font-size: 30px;
 }
 
 .image-wrapper {
-  position: relative; /* Required for absolute child */
+  position: relative;
   height: 200px;
   width: 100%;
   border-top-left-radius: 20px;
@@ -1007,10 +991,10 @@ font-size: 30px;
   text-transform: capitalize;
 }
 
-/* ----- LABEL (optional, e.g., "For Sale") ----- */
 
 
-/* ----- TITLE BANNER ----- */
+
+
 .maintitle {
   width: 100%;
   padding: 0.3rem 1rem;
@@ -1028,7 +1012,7 @@ font-size: 30px;
   text-overflow: ellipsis;
 }
 
-/* ----- DESCRIPTION SECTION ----- */
+
 .description {
   display: flex;
   margin-top: 0.2rem;
@@ -1038,7 +1022,7 @@ font-size: 30px;
   padding: 1rem 0rem;
 }
 
-/* Address line */
+
 .location {
   font-weight: 300;
   width: auto;
@@ -1083,7 +1067,7 @@ font-size: 30px;
 
 
 
-/* Features Row */
+
 .features {
   display: flex;
   gap: 1.2rem;
