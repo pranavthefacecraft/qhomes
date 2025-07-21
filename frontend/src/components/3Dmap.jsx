@@ -15,7 +15,7 @@ import { PerspectiveCamera,
 
 const ThreeDMap = () => {
   return (
-    <Wrapper apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+    <Wrapper apiKey="AIzaSyCjEGPM8XfoV22BVzUmPTRtjoxYcrCTQcI">
        <MyMap/>
     </Wrapper>
   );

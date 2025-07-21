@@ -115,13 +115,9 @@ const PropertyList = () => {
           <div className="relative h-48">
             {property.images && property.images.length > 0 ? (
               <img
-                src={`https://qhomesbackend.tfcmockup.com/storage/${property.images[0]}`}
+                src="/image.jpg"
                 alt={property.title}
                 className="w-full h-full object-cover rounded-lg"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = '/placeholder-property.jpg';
-                }}
               />
             ) : (
               <div className="w-full h-48 flex items-center justify-center text-gray-500">

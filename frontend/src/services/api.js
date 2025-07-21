@@ -4,12 +4,7 @@ const API_BASE_URL = 'https://qhomesbackend.tfcmockup.com/api';
 
 // Configure axios defaults
 axios.defaults.baseURL = API_BASE_URL;
-// Remove withCredentials to fix CORS issues
-// axios.defaults.withCredentials = true;
-
-// Set default headers for better compatibility
-axios.defaults.headers.common['Accept'] = 'application/json';
-axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.defaults.withCredentials = true;
 
 // Request interceptor to add auth token
 axios.interceptors.request.use(

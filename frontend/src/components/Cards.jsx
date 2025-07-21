@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { GrFavorite } from 'react-icons/gr'
+import { IoShareSocialSharp } from "react-icons/io5";
 
 import { Carousel } from './ImageSlider';
+
 
 import useHoverStore from './store';
 
@@ -112,30 +115,34 @@ const Cards = () => {
 
   console.log('Rendering properties:', properties.length);
 
+  
   return (
-    <div className="space-y-6">
+    <>
+    
+
     {properties.map((property) => (
     <div 
-     className={`bg-white rounded-lg shadow-lg overflow-hidden border transition-all duration-200 ${hoveredPropertyId === property.id ? 'shadow-xl transform scale-105' : 'shadow-md'}`}
+     className={`details ${hoveredPropertyId === property.id ? 'card-hovered' : ''}`}
      key={property.id}
      onMouseEnter={() => setHoveredProperty(property.id)}
      onMouseLeave={clearHoveredProperty}
     >
    {/* Image */}
-     <div className="relative h-64 bg-gray-200">
+     <div className="image">
        {property.images && property.images.length > 0 ? (
         <>
-         <div className="relative w-full h-full">
+         <div className="image-wrapper">
 
-          <div className="absolute top-4 right-4 flex space-x-2 z-10">
-            <div className="w-8 h-8 bg-white bg-opacity-80 rounded-full flex items-center justify-center hover:bg-opacity-100 cursor-pointer">
-              <img src='/heart.svg' alt="Favorite" className="w-4 h-4" />
-            </div>
-            <div className="w-8 h-8 bg-white bg-opacity-80 rounded-full flex items-center justify-center hover:bg-opacity-100 cursor-pointer">
-              <img src='/frame.svg' alt="Share" className="w-4 h-4" />
-            </div>
+          <div className="card-icons">
+            <img src='/heart.svg' alt="Bedrooms" className="icon" />
+            <img src='/Frame.svg' alt="Bedrooms" className="icon" />
           </div>
 
+          {/* <img
+             src={`https://qhomesbackend.tfcmockup.com/storage/${property.images[0]}`}
+             alt={property.title}
+             className=""
+          /> */}
           <Carousel
            data={property.images.map((img, index) => ({
              src: `https://qhomesbackend.tfcmockup.com/storage/${img}`,
@@ -143,12 +150,11 @@ const Cards = () => {
            }))}
           />
 
-          <div className="absolute bottom-4 left-4">
-            <div className="bg-white bg-opacity-90 rounded-lg px-3 py-2">
-              <span className="text-lg font-bold text-gray-900">{property.display_price || formatPrice(property.price, property.currency)}</span>
-              <div className="text-sm text-gray-600">{property.type}</div>
-            </div>
+          <div className="label">
+            <span className="label-price">{property.display_price || formatPrice(property.price, property.currency)}</span>
+            <span className="label-type">{property.type}</span>
           </div>
+
 
          </div>
         </>  
@@ -166,34 +172,36 @@ const Cards = () => {
   
     {/* Description Section */}
     <Link to={`/property/${property.id}`}>
-    <div className="p-6">
+    <div className="description">
 
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{property.title}</h3>
-      <div className="flex items-center mb-4 text-gray-600">
-        <img src='/location.svg' alt="Location" className="w-4 h-4 mr-2" />
-        <span className="text-sm">{property.location}</span>
+      <div className="title">{property.title}</div>
+      <div className="location">
+        <img src='/location.svg' alt="Bedrooms" className="location-svg" />
+        <div className="location-text">{property.location}</div>
       </div>
-      <div className="flex space-x-6 text-sm text-gray-600">
-        <div className="flex items-center">
-          <img src='/home.svg' alt="Area" className="w-4 h-4 mr-1" />
-          <span>{property.bathrooms} m²</span>
+      <div className="features">
+        <div className="feature">
+          <img src='/home.svg' alt="Bedrooms" className="icon" />
+          <div className="feature-text">{property.bathrooms} m²</div>
         </div>
-        <div className="flex items-center">
-          <img src='/bed.svg' alt="Bedrooms" className="w-4 h-4 mr-1" />
-          <span>{property.bathrooms}</span>
+        <div className="feature">
+          <img src='/bed.svg' alt="Bedrooms" className="icon" />
+          <div className="feature-text">{property.bathrooms}</div>
         </div>
-        <div className="flex items-center">
-          <img src='/shower.svg' alt="Bathrooms" className="w-4 h-4 mr-1" />
-          <span>{property.bathrooms}</span>
+        <div className="feature">
+          <img src='/shower.svg' alt="Bedrooms" className="icon" />
+          <div className="feature-text">{property.bathrooms}</div>
         </div>
       </div>
+      
 
     </div>
     </Link>
 
+
     </div>
     ))}
-    </div>
+    </>
   );
 };
 
