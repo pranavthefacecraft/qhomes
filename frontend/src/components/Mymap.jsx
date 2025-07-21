@@ -8,7 +8,7 @@ import useHoverStore from './store';
  const mapOptions = {
   mapId: '2d55830b3d259e649093f93b',
   center: { lat: 3.1581827058250758, lng: 101.71116104992754},
-  zoom: 17,
+  zoom: 15,
   disableDefaultUI: true,
   clickableIcons: false,
   heading: 30,
@@ -474,8 +474,26 @@ const MyMap = () => {
 
     setMarkerComponents(markerComponentsData);
 
-  }, [map, markers, calculateCommuteInfo]);  
+  }, [map, markers, calculateCommuteInfo]);
 
+  // Trigger circle animation on hover
+  useEffect(() => {
+    if (animatingPropertyId && markers.length > 0) {
+      const hoveredMarker = markers.find(marker => marker.property.id === animatingPropertyId);
+      if (hoveredMarker && hoveredMarker.position) {
+        console.log('Starting animation for property:', animatingPropertyId);
+        animateCircleForMarker(hoveredMarker.position, animatingPropertyId);
+      }
+    }
+  }, [animatingPropertyId, markers, animateCircleForMarker]);
+
+  // Stop animation when shouldStopAnimation is true
+  useEffect(() => {
+    if (shouldStopAnimation && animationRef.current) {
+      console.log('Stopping animation for property:', animationRef.current.propertyId);
+      animationRef.current.stop = true;
+    }
+  }, [shouldStopAnimation]);
 
   return (
     <>

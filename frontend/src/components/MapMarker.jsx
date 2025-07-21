@@ -31,32 +31,12 @@ const MapMarker = ({ map, position, title = "Property Location", icon = null, pr
 
     // Function to determine marker color based on commute info or distance calculation
     const getMarkerColor = () => {
-      // Use passed commute info if available, otherwise calculate distance
-      if (commuteInfo && commuteInfo.color) {
-        return commuteInfo.color;
-      }
-      
-      // Fallback to distance calculation if commute info not available
-      const distance = calculateDistance(
-        mapCenter.lat,
-        mapCenter.lng,
-        position.lat,
-        position.lng
-      );
-
-      if (distance <= 15000) {
-        return '#8BC34A'; // Green - Easy to commute
-      } else if (distance <= 30000) {
-        return '#FBC02D'; // Yellow - Moderate
-      } else if (distance <= 45000) {
-        return '#FF5252'; // Red - Hard to commute
-      } else {
-        return '#9E9E9E'; // Gray - Very far
-      }
+      // Always return white regardless of commute info or distance
+      return '#FFFFFF'; // White
     };
 
     const markerColor = getMarkerColor();
-    const displayPrice = property?.price ? `${property.currency || ''}${property.price}` : 'Price N/A';
+    const displayPrice = property?.price ? `${property.currency || ''} ${property.price}` : 'Price N/A';
 
     // Create marker with normal size initially
     const marker = new window.google.maps.Marker({
@@ -69,14 +49,14 @@ const MapMarker = ({ map, position, title = "Property Location", icon = null, pr
             <!-- Drop shadow -->
             <rect x="4" y="4" width="112" height="36" rx="8" fill="rgba(0,0,0,0.2)"/>
             
-            <!-- Main tooltip background with distance-based color -->
-            <rect x="2" y="2" width="112" height="36" rx="8" fill="${markerColor}" stroke="#ffffff" stroke-width="2"/>
+            <!-- Main tooltip background with white color -->
+            <rect x="2" y="2" width="112" height="36" rx="8" fill="${markerColor}" stroke="#cccccc" stroke-width="1"/>
             
             <!-- Small triangle pointer -->
-            <path d="M58 38L62 42L66 38Z" fill="${markerColor}" stroke="#ffffff" stroke-width="2"/>
+            <path d="M58 38L62 42L66 38Z" fill="${markerColor}" stroke="#cccccc" stroke-width="1"/>
             
-            <!-- Price text in black -->
-            <text x="58" y="24" text-anchor="middle" fill="#000000" font-size="14" font-weight="600" font-family="Arial, sans-serif">${displayPrice}</text>
+            <!-- Price text in dark color with reduced font size -->
+            <text x="58" y="24" text-anchor="middle" fill="#333333" font-size="11" font-weight="600" font-family="Roboto, sans-serif">${displayPrice}</text>
           </svg>
         `),
         scaledSize: new window.google.maps.Size(120, 45),
@@ -99,14 +79,14 @@ const MapMarker = ({ map, position, title = "Property Location", icon = null, pr
               <!-- Drop shadow -->
               <rect x="4" y="4" width="112" height="36" rx="8" fill="rgba(0,0,0,${shadowOpacity})"/>
               
-              <!-- Main tooltip background with distance-based color -->
-              <rect x="2" y="2" width="112" height="36" rx="8" fill="${markerColor}" stroke="#ffffff" stroke-width="2"/>
+              <!-- Main tooltip background with white color -->
+              <rect x="2" y="2" width="112" height="36" rx="8" fill="${markerColor}" stroke="#cccccc" stroke-width="1"/>
               
               <!-- Small triangle pointer -->
-              <path d="M58 38L62 42L66 38Z" fill="${markerColor}" stroke="#ffffff" stroke-width="2"/>
+              <path d="M58 38L62 42L66 38Z" fill="${markerColor}" stroke="#cccccc" stroke-width="1"/>
               
-              <!-- Price text in black -->
-              <text x="58" y="24" text-anchor="middle" fill="#000000" font-size="14" font-weight="600" font-family="Arial, sans-serif">${displayPrice}</text>
+              <!-- Price text in dark color with reduced font size -->
+              <text x="58" y="24" text-anchor="middle" fill="#333333" font-size="11" font-weight="600" font-family="Roboto, sans-serif">${displayPrice}</text>
             </svg>
           `),
           scaledSize: new window.google.maps.Size(120 * scale, 45 * scale),

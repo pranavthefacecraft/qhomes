@@ -24,7 +24,7 @@ const Content = () => {
       // Calculate square dimensions based on available width
       const rightWrapperWidth = rightWrapper.offsetWidth - 32; // subtract padding (1rem * 2)
       mapWrapper.style.width = `${rightWrapperWidth}px`;
-      mapWrapper.style.height = `${rightWrapperWidth}px`;
+      mapWrapper.style.height = `${rightWrapperWidth + 50}px`; // Add 100px to height
 
       // Create GSAP sticky animation
       ScrollTrigger.create({
@@ -46,17 +46,16 @@ const Content = () => {
   return (
     <main style={{
       flex: 1,
-      backgroundColor: '#f8f9fa',
       minHeight: 'calc(100vh - 120px)',
-      padding: '2rem',
+      width: '100%',
+      padding: '0rem 0rem',
       display: 'flex',
       gap: '1rem'
     }}>
       <div className="left-wrapper" style={{
-        width: '55%',
-        backgroundColor: '#ffffff',
+        width: '60%',
         borderRadius: '8px',
-        padding: '1rem'
+        padding: '0'
       }}>
          <div className='headline'>
           <span>Results for Kuala Lumpur</span>
@@ -68,17 +67,17 @@ const Content = () => {
       </div>
       
       <div className="right-wrapper" ref={rightWrapperRef} style={{
-        width: '45%',
-        backgroundColor: '#ffffff',
+        width: '40%',
         borderRadius: '8px',
-        padding: '1rem',
+        padding: '2rem 0rem',
         height: 'fit-content' // Prevents extra space
       }}>
         <div className="map-wrapper" ref={mapWrapperRef} style={{
           width: '100%',
           aspectRatio: '1/1', // Makes it square
           borderRadius: '8px',
-          position: 'relative'
+          position: 'relative',
+          height: '100%'
         }}>
           <ThreeDMap/>
         </div>
