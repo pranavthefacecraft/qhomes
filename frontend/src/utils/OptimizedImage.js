@@ -24,7 +24,7 @@ const OptimizedImage = ({ src, alt, className, fallback = '/image.jpg', onClick,
         
         // If it's a property image path from API, prefix with backend storage URL
         if (imagePath.startsWith('property-images/')) {
-            return `http://localhost:8000/storage/${imagePath}`;
+            return `https://qhomesbackend.tfcmockup.com/storage/${imagePath}`;
         }
         
         // Otherwise add the leading slash

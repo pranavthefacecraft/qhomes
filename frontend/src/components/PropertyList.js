@@ -23,7 +23,7 @@ const PropertyList = () => {
       console.log('Fetching properties from API...');
       
       // Update this URL to match your Laravel backend URL
-      const response = await axios.get('http://localhost:8000/api/properties');
+      const response = await axios.get('https://qhomesbackend.tfcmockup.com/api/properties');
       console.log('API Response:', response.data);
       console.log('API Response type:', typeof response.data);
       console.log('Is array?', Array.isArray(response.data));
@@ -115,9 +115,13 @@ const PropertyList = () => {
           <div className="relative h-48">
             {property.images && property.images.length > 0 ? (
               <img
-                src="/image.jpg"
+                src={`https://qhomesbackend.tfcmockup.com/storage/${property.images[0]}`}
                 alt={property.title}
                 className="w-full h-full object-cover rounded-lg"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/placeholder-property.jpg';
+                }}
               />
             ) : (
               <div className="w-full h-48 flex items-center justify-center text-gray-500">

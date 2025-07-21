@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { GrFavorite } from 'react-icons/gr'
-import { IoShareSocialSharp } from "react-icons/io5";
 
 import { Carousel } from './ImageSlider';
-
 
 import useHoverStore from './store';
 
@@ -35,7 +32,7 @@ const Cards = () => {
       console.log('Fetching properties from API...');
       
       // Update this URL to match your Laravel backend URL
-      const response = await axios.get('http://localhost:8000/api/properties');
+      const response = await axios.get('https://qhomesbackend.tfcmockup.com/api/properties');
       console.log('API Response:', response.data);
       console.log('API Response type:', typeof response.data);
       console.log('Is array?', Array.isArray(response.data));
@@ -115,46 +112,43 @@ const Cards = () => {
 
   console.log('Rendering properties:', properties.length);
 
-  
   return (
-    <>
-    
-
+    <div className="space-y-6">
     {properties.map((property) => (
     <div 
-     className={`details ${hoveredPropertyId === property.id ? 'card-hovered' : ''}`}
+     className={`bg-white rounded-lg shadow-lg overflow-hidden border transition-all duration-200 ${hoveredPropertyId === property.id ? 'shadow-xl transform scale-105' : 'shadow-md'}`}
      key={property.id}
      onMouseEnter={() => setHoveredProperty(property.id)}
      onMouseLeave={clearHoveredProperty}
     >
    {/* Image */}
-     <div className="image">
+     <div className="relative h-64 bg-gray-200">
        {property.images && property.images.length > 0 ? (
         <>
-         <div className="image-wrapper">
+         <div className="relative w-full h-full">
 
-          <div className="card-icons">
-            <img src='/heart.svg' alt="Bedrooms" className="icon" />
-            <img src='/frame.svg' alt="Bedrooms" className="icon" />
+          <div className="absolute top-4 right-4 flex space-x-2 z-10">
+            <div className="w-8 h-8 bg-white bg-opacity-80 rounded-full flex items-center justify-center hover:bg-opacity-100 cursor-pointer">
+              <img src='/heart.svg' alt="Favorite" className="w-4 h-4" />
+            </div>
+            <div className="w-8 h-8 bg-white bg-opacity-80 rounded-full flex items-center justify-center hover:bg-opacity-100 cursor-pointer">
+              <img src='/frame.svg' alt="Share" className="w-4 h-4" />
+            </div>
           </div>
 
-          {/* <img
-             src={`http://localhost:8000/storage/${property.images[0]}`}
-             alt={property.title}
-             className=""
-          /> */}
           <Carousel
            data={property.images.map((img, index) => ({
-             src: `http://localhost:8000/storage/${img}`,
+             src: `https://qhomesbackend.tfcmockup.com/storage/${img}`,
              alt: `${property.title} - Image ${index + 1}`
            }))}
           />
 
-          <div className="label">
-            <span className="label-price">{property.display_price || formatPrice(property.price, property.currency)}</span>
-            <span className="label-type">{property.type}</span>
+          <div className="absolute bottom-4 left-4">
+            <div className="bg-white bg-opacity-90 rounded-lg px-3 py-2">
+              <span className="text-lg font-bold text-gray-900">{property.display_price || formatPrice(property.price, property.currency)}</span>
+              <div className="text-sm text-gray-600">{property.type}</div>
+            </div>
           </div>
-
 
          </div>
         </>  
@@ -172,36 +166,34 @@ const Cards = () => {
   
     {/* Description Section */}
     <Link to={`/property/${property.id}`}>
-    <div className="description">
+    <div className="p-6">
 
-      <div className="title">{property.title}</div>
-      <div className="location">
-        <img src='/location.svg' alt="Bedrooms" className="location-svg" />
-        <div className="location-text">{property.location}</div>
+      <h3 className="text-xl font-semibold text-gray-900 mb-2">{property.title}</h3>
+      <div className="flex items-center mb-4 text-gray-600">
+        <img src='/location.svg' alt="Location" className="w-4 h-4 mr-2" />
+        <span className="text-sm">{property.location}</span>
       </div>
-      <div className="features">
-        <div className="feature">
-          <img src='/home.svg' alt="Bedrooms" className="icon" />
-          <div className="feature-text">{property.bathrooms} m²</div>
+      <div className="flex space-x-6 text-sm text-gray-600">
+        <div className="flex items-center">
+          <img src='/home.svg' alt="Area" className="w-4 h-4 mr-1" />
+          <span>{property.bathrooms} m²</span>
         </div>
-        <div className="feature">
-          <img src='/bed.svg' alt="Bedrooms" className="icon" />
-          <div className="feature-text">{property.bathrooms}</div>
+        <div className="flex items-center">
+          <img src='/bed.svg' alt="Bedrooms" className="w-4 h-4 mr-1" />
+          <span>{property.bathrooms}</span>
         </div>
-        <div className="feature">
-          <img src='/shower.svg' alt="Bedrooms" className="icon" />
-          <div className="feature-text">{property.bathrooms}</div>
+        <div className="flex items-center">
+          <img src='/shower.svg' alt="Bathrooms" className="w-4 h-4 mr-1" />
+          <span>{property.bathrooms}</span>
         </div>
       </div>
-      
 
     </div>
     </Link>
 
-
     </div>
     ))}
-    </>
+    </div>
   );
 };
 
