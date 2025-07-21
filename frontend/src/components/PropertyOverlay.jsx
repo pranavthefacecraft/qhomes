@@ -64,7 +64,7 @@ const PropertyCardOverlay = ({ property, onClose }) => {
 
                 <Carousel
                   data={property.images.map((img, index) => ({
-                    src: `http://localhost:8000/storage/${img}`,
+                    src: `https://qhomesbackend.tfcmockup.com/storage/${img}`,
                     alt: `${property.title} - Image ${index + 1}`
                   }))}
                   style={{ height: '140px' }} // Slightly smaller height

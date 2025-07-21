@@ -23,7 +23,7 @@ const PropertyList = () => {
       console.log('Fetching properties from API...');
       
       // Update this URL to match your Laravel backend URL
-      const response = await axios.get('http://localhost:8000/api/properties');
+      const response = await axios.get('https://qhomesbackend.tfcmockup.com/api/properties');
       console.log('API Response:', response.data);
       console.log('API Response type:', typeof response.data);
       console.log('Is array?', Array.isArray(response.data));

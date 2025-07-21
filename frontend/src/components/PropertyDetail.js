@@ -14,7 +14,7 @@ const PropertyDetail = () => {
         const fetchProperty = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`http://localhost:8000/api/properties/${id}`);
+                const response = await fetch(`https://qhomesbackend.tfcmockup.com/api/properties/${id}`);
                 
                 if (!response.ok) {
                     throw new Error('Property not found');
@@ -66,7 +66,7 @@ const PropertyDetail = () => {
     // Memoize images to prevent unnecessary re-renders
     const images = useMemo(() => {
         if (property?.images && property.images.length > 0) {
-            return property.images.map(img => `http://localhost:8000/storage/${img}`);
+            return property.images.map(img => `https://qhomesbackend.tfcmockup.com/storage/${img}`);
         }
         return ['/image.jpg'];
     }, [property?.images]);

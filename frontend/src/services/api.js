@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = 'https://qhomesbackend.tfcmockup.com/api';
 
 // Configure axios defaults
 axios.defaults.baseURL = API_BASE_URL;
