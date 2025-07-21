@@ -59,7 +59,7 @@ const UpdatedMap = () => {
               const geocodedLat = results[0].geometry.location.lat();
               const geocodedLng = results[0].geometry.location.lng();
               
-              console.log('Geocoded coordinates for', property.title, ':', geocodedLat, geocodedLng);
+              console.log('Geocoded coordinates for', property.title, ':', property.full_address, geocodedLat, geocodedLng, property.price);
               
               resolve({
                 id: property.id,

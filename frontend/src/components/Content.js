@@ -1,9 +1,6 @@
 import React from 'react';
-import UpdatedMap from './Newmap';
-import Cards from './Cards.jsx';
-
-
-
+import Cards from './Cards';
+import ThreeDMap from './3Dmap';
 
 const Content = () => {
 
@@ -20,7 +17,7 @@ const Content = () => {
     </div>
     <div className="flex-1 p-4">
       <div className="map-container h-full">
-        <UpdatedMap/>
+        <ThreeDMap/>
       </div>
     </div>
   </div>
