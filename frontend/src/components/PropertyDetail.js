@@ -284,7 +284,7 @@ const PropertyDetail = () => {
                                         e.stopPropagation();
                                         prevLightboxImage();
                                     }}
-                                    className="absolute left-4 top-half transform -translate-y-half text-white text-4xl hover:text-gray-300 bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center"
+                                    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-gray-300 bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center"
                                 >
                                     ‹
                                 </button>
@@ -293,7 +293,7 @@ const PropertyDetail = () => {
                                         e.stopPropagation();
                                         nextLightboxImage();
                                     }}
-                                    className="absolute right-4 top-half transform -translate-y-half text-white text-4xl hover:text-gray-300 bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center"
+                                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-gray-300 bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center"
                                 >
                                     ›
                                 </button>
@@ -301,7 +301,7 @@ const PropertyDetail = () => {
                         )}
                         
                         {/* Counter */}
-                        <div className="absolute bottom-4 left-half transform -translate-x-half text-white text-lg bg-black bg-opacity-50 px-4 py-2 rounded">
+                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-lg bg-black bg-opacity-50 px-4 py-2 rounded">
                             {lightboxImageIndex + 1} / {images.length}
                         </div>
                     </div>
@@ -311,18 +311,18 @@ const PropertyDetail = () => {
                 <div className='content-property'>
                 <div class="flex flex-row">
   
-  <div class="basis-two-thirds mr-7">
+  <div class="basis-2/3 mr-7">
   <div className="roboto">
-                            <p className="text-sm text-gray-600 mb-4">
+                            <p className="text-[14px] text-gray-600 mb-4">
                                 📍 {property.address}
                             </p>
                             <div className="flex flex-wrap gap-2">
-                                <span className={`px-3 py-1 rounded-full text-xs roboto ${
+                                <span className={`px-3 py-1 rounded-full text-[12px] roboto ${
                                     property.status === 'available' 
-                                        ? 'bg-blue-custom text-white'
+                                        ? 'bg-[#6091ED] text-white'
                                         : property.status === 'sold'
-                                        ? 'bg-blue-custom text-white'
-                                        : 'bg-blue-custom text-white'
+                                        ? 'bg-[#6091ED] text-white'
+                                        : 'bg-[#6091ED] text-white'
                                 }`}>
                                     {property.status ? property.status.charAt(0).toUpperCase() + property.status.slice(1) : 'Available'}
                                 </span>
@@ -336,8 +336,8 @@ const PropertyDetail = () => {
                         </div>
                         {/* Property Details */}
                         <div className="roboto">
-                            <h2 className="text-lg font-semibold text-gray-900 mt-4 mb-4">Property Details</h2>
-                            <div className="space-y-3 text-sm ">
+                            <h2 className="text-[18px] font-semibold text-gray-900 mt-4 mb-4">Property Details</h2>
+                            <div className="space-y-3 text-[14px] ">
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Property Type:</span>
                                     <span className="capitalize">{property.type}</span>
@@ -378,7 +378,7 @@ const PropertyDetail = () => {
                         </div>
                         {/* Property Features Grid */}
                         <div className="roboto">
-                            <h2 className="text-lg font-semibold text-gray-900 mt-4 mb-4">Property Features</h2>
+                            <h2 className="text-[18px] font-semibold text-gray-900 mt-4 mb-4">Property Features</h2>
                             <div className=" grid grid-cols-4 gap-4">
                                 <div className="text-center p-3 bg-white rounded-lg">
                                     <div className="text-2xl font-bold text-gray-900">{property.bedrooms}</div>
@@ -401,7 +401,7 @@ const PropertyDetail = () => {
                         {/* Features List */}
                         {property.features && property.features.length > 0 && (
                             <div className="roboto">
-                                <h2 className="text-lg font-semibold text-gray-900 mt-4 mb-4">Features</h2>
+                                <h2 className="text-[18px] font-semibold text-gray-900 mt-4 mb-4">Features</h2>
                                 <div className="grid grid-cols-1 gap-2">
                                     {property.features.map((feature, index) => (
                                         <div key={index} className="flex items-center space-x-2">
@@ -415,9 +415,9 @@ const PropertyDetail = () => {
 
                         {/* Description */}
                         <div className="roboto">
-                            <h2 className="text-lg font-semibold text-gray-900 mt-4 mb-4">Description</h2>
+                            <h2 className="text-[18px] font-semibold text-gray-900 mt-4 mb-4">Description</h2>
                             <div 
-                                className="text-gray-700 leading-5 roboto text-sm prose prose-sm max-w-none"
+                                className="text-gray-700 leading-[20px] roboto text-[14px] prose prose-sm max-w-none"
                                 dangerouslySetInnerHTML={{ 
                                     __html: property.description || 'No description available for this property.' 
                                 }}
@@ -425,15 +425,15 @@ const PropertyDetail = () => {
                         </div>
                         
   </div>
-  <div class="basis-one-third">
+  <div class="basis-1/3">
   {/* Price & Booking Card */}
                         <div className="bg-white rounded-lg shadow-sm p-6 sticky top-4">
                             {/* Price */}
                             <div className="mb-4">
-                                <div className="text-lg roboto font-bold text-blue-600 mb-1">
+                                <div className="text-[18px] roboto font-bold text-blue-600 mb-1">
                                     {property.display_price || formatPrice(property.price, property.currency)}
                                 </div>
-                                <p className="text-gray-600 roboto text-sm">
+                                <p className="text-gray-600 roboto text-[14px]">
                                     {property.status === 'for_rent' ? 'per month' : 'total price'}
                                 </p>
                             </div>
@@ -442,7 +442,7 @@ const PropertyDetail = () => {
                             <div className="space-y-4 mb-6">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block roboto text-sm text-gray-700 mb-0">
+                                        <label className="block roboto text-[14px] text-gray-700 mb-0">
                                             Check-in
                                         </label>
                                         <input 
@@ -451,7 +451,7 @@ const PropertyDetail = () => {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block roboto text-sm text-gray-700 mb-0">
+                                        <label className="block roboto text-[14px] text-gray-700 mb-0">
                                             Check-out
                                         </label>
                                         <input 
@@ -462,7 +462,7 @@ const PropertyDetail = () => {
                                 </div>
                                 
                                 <div>
-                                    <label className="block roboto text-sm text-gray-700 mb-0">
+                                    <label className="block roboto text-[14px] text-gray-700 mb-0">
                                         Guests
                                     </label>
                                     <select className="w-full border border-gray-300 rounded-lg px-3 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
